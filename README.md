@@ -1,2 +1,3 @@
 # nix-templates
+
 Flake templates

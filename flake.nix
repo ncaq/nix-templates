@@ -10,12 +10,11 @@
 
   outputs =
     inputs@{
-      nixpkgs,
       flake-parts,
       treefmt-nix,
       ...
     }:
-    flake-parts.lib.mkFlake { inherit inputs; } (top: {
+    flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         treefmt-nix.flakeModule
       ];
@@ -28,7 +27,6 @@
       perSystem =
         {
           pkgs,
-          system,
           ...
         }:
         {
@@ -83,7 +81,7 @@
             ];
           };
         };
-    });
+    };
 
   nixConfig = {
     extra-substituters = [
