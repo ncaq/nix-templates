@@ -1,0 +1,50 @@
+name: Setup Nix
+description: Install Nix and configure caches
+
+inputs:
+  cachix-auth-token:
+    description: Cachix authentication token
+    required: false
+    default: ""
+  cachix-name:
+    description: Cachix cache name
+    required: false
+    default: ""
+  attic-token:
+    description: Attic cache authentication token
+    required: false
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31
+      with:
+        extra_nix_config: >
+          extra-substituters =
+          https://nix-community.cachix.org/
+
+          extra-trusted-public-keys =
+          nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+
+    - name: Setup Cachix cache
+      if: inputs.cachix-auth-token != '' && inputs.cachix-name != ''
+      uses: cachix/cachix-action@3ba601ff5bbb07c7220846facfa2cd81eeee15a1 # v16
+      with:
+        name: "${{ inputs.cachix-name }}"
+        authToken: "${{ inputs.cachix-auth-token }}"
+        # デーモンのpost-build-hookではなくstore scanによるクライアント側pushを使用します。
+        # 通常セルフホステッドランナーでは、
+        # post-build-hookのパスがデーモンから到達できなかったりするためデーモンモードは使用できません。
+        # 自分がホストしたNixOSコンテナ上や、
+        # 他の場所でのUbuntu上のセルフホステッドランナーでdaemonを無効化しないと動作しないことを確認しています。
+        # store scanはクライアント側で動作するため両環境で問題なく使えます。
+        # 一貫性のために多少のパフォーマンスより設定を統一して両方の環境で`useDaemon`を`false`にしています。
+        useDaemon: false
+    - name: Setup Attic cache
+      if: inputs.attic-token != ''
+      uses: ryanccn/attic-action@1887fd507f03327c96c64cca30118c96eb17fdad # v0.4.1
+      with:
+        endpoint: https://seminar.border-saurolophus.ts.net/nix/cache/
+        cache: private
+        token: "${{ inputs.attic-token }}"
