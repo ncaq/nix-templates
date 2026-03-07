@@ -96,7 +96,6 @@
               name = "sync-template-files";
               runtimeInputs = with pkgs; [
                 coreutils
-                rsync
               ];
               text = ''
                 root="''${1:-.}"
