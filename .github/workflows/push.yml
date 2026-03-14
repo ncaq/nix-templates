@@ -22,5 +22,4 @@ jobs:
         with:
           cachix-auth-token: "${{ secrets.CACHIX_AUTH_TOKEN }}"
           cachix-name: nix-templates
-          attic-token: "${{ secrets.ATTIC_TOKEN }}"
       - run: nix run '.#nix-fast-build' -- --option eval-cache false --no-link --skip-cached --no-nom
