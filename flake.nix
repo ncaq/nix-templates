@@ -59,6 +59,44 @@
             ".github/release.yml"
             ".marksman.toml"
           ];
+
+          sync-template-files = pkgs.writeShellApplication {
+            name = "sync-template-files";
+            runtimeInputs = with pkgs; [
+              coreutils
+            ];
+            text = ''
+              root="''${1:-.}"
+              ${pkgs.lib.concatMapStringsSep "\n" (
+                dir:
+                pkgs.lib.concatMapStringsSep "\n" (f: ''
+                  mkdir -p "$root/templates/${dir}/$(dirname "${f}")"
+                  cp "$root/${f}" "$root/templates/${dir}/${f}"
+                '') syncFiles
+              ) templateDirs}
+              # CLAUDE.mdシンボリックリンクの確認・作成
+              ${pkgs.lib.concatMapStringsSep "\n" (dir: ''
+                if [ ! -L "$root/templates/${dir}/CLAUDE.md" ]; then
+                  ln -sf .github/copilot-instructions.md "$root/templates/${dir}/CLAUDE.md"
+                fi
+              '') templateDirs}
+              echo "Template files synced."
+            '';
+          };
+
+          sync-commit = pkgs.writeShellApplication {
+            name = "sync-commit";
+            runtimeInputs = with pkgs; [
+              coreutils
+              git
+              sync-template-files
+            ];
+            text = ''
+              sync-template-files
+              git add -A
+              git commit -m "chore: \`nix run '.#sync-template-files'\`"
+            '';
+          };
         in
         {
           treefmt.config = {
@@ -98,29 +136,7 @@
             inherit (pkgs)
               nix-fast-build
               ;
-            sync-template-files = pkgs.writeShellApplication {
-              name = "sync-template-files";
-              runtimeInputs = with pkgs; [
-                coreutils
-              ];
-              text = ''
-                root="''${1:-.}"
-                ${pkgs.lib.concatMapStringsSep "\n" (
-                  dir:
-                  pkgs.lib.concatMapStringsSep "\n" (f: ''
-                    mkdir -p "$root/templates/${dir}/$(dirname "${f}")"
-                    cp "$root/${f}" "$root/templates/${dir}/${f}"
-                  '') syncFiles
-                ) templateDirs}
-                # CLAUDE.mdシンボリックリンクの確認・作成
-                ${pkgs.lib.concatMapStringsSep "\n" (dir: ''
-                  if [ ! -L "$root/templates/${dir}/CLAUDE.md" ]; then
-                    ln -sf .github/copilot-instructions.md "$root/templates/${dir}/CLAUDE.md"
-                  fi
-                '') templateDirs}
-                echo "Template files synced."
-              '';
-            };
+            inherit sync-template-files sync-commit;
           };
           checks = {
             template-sync = pkgs.runCommand "template-sync-check" { } ''

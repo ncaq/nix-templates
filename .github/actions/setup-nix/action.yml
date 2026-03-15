@@ -9,7 +9,7 @@ inputs:
   cachix-name:
     description: Cachix cache name
     required: false
-    default: ""
+    default: ncaq
 
 runs:
   using: composite
