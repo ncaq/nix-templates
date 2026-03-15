@@ -18,9 +18,15 @@ runs:
       with:
         extra_nix_config: >
           extra-substituters =
+          https://cache.nixos.org/
+          https://niks3-public.ncaq.net/
+          https://ncaq.cachix.org/
           https://nix-community.cachix.org/
 
           extra-trusted-public-keys =
+          cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+          niks3-public.ncaq.net-1:e/B9GomqDchMBmx3IW/TMQDF8sjUCQzEofKhpehXl04=
+          ncaq.cachix.org-1:XF346GXI2n77SB5Yzqwhdfo7r0nFcZBaHsiiMOEljiE=
           nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
 
     - name: Setup Cachix cache
@@ -29,11 +35,3 @@ runs:
       with:
         name: "${{ inputs.cachix-name }}"
         authToken: "${{ inputs.cachix-auth-token }}"
-        # デーモンのpost-build-hookではなくstore scanによるクライアント側pushを使用します。
-        # 通常セルフホステッドランナーでは、
-        # post-build-hookのパスがデーモンから到達できなかったりするためデーモンモードは使用できません。
-        # 自分がホストしたNixOSコンテナ上や、
-        # 他の場所でのUbuntu上のセルフホステッドランナーでdaemonを無効化しないと動作しないことを確認しています。
-        # store scanはクライアント側で動作するため両環境で問題なく使えます。
-        # 一貫性のために多少のパフォーマンスより設定を統一して両方の環境で`useDaemon`を`false`にしています。
-        useDaemon: false
