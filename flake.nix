@@ -55,6 +55,7 @@
             ".editorconfig-checker.json"
             ".envrc"
             ".github/actions/setup-nix/action.yml"
+            ".github/git-commit-instructions.md"
             ".github/release.yml"
             ".marksman.toml"
           ];
