@@ -42,6 +42,9 @@ jobs:
           VERSION=$(node -p "require('./package.json').version")
           if [ "$VERSION" = "0.0.0" ]; then
             echo "Initial version, skipping release"
+          elif ! echo "$VERSION" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$'; then
+            echo "Invalid semver format: $VERSION"
+            exit 1
           else
             echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           fi
