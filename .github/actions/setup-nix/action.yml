@@ -29,11 +29,3 @@ runs:
       with:
         name: "${{ inputs.cachix-name }}"
         authToken: "${{ inputs.cachix-auth-token }}"
-        # デーモンのpost-build-hookではなくstore scanによるクライアント側pushを使用します。
-        # 通常セルフホステッドランナーでは、
-        # post-build-hookのパスがデーモンから到達できなかったりするためデーモンモードは使用できません。
-        # 自分がホストしたNixOSコンテナ上や、
-        # 他の場所でのUbuntu上のセルフホステッドランナーでdaemonを無効化しないと動作しないことを確認しています。
-        # store scanはクライアント側で動作するため両環境で問題なく使えます。
-        # 一貫性のために多少のパフォーマンスより設定を統一して両方の環境で`useDaemon`を`false`にしています。
-        useDaemon: false
