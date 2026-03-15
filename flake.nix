@@ -56,7 +56,6 @@
             ".envrc"
             ".github/actions/setup-nix/action.yml"
             ".github/dependabot.yml"
-            ".github/git-commit-instructions.md"
             ".github/release.yml"
             ".gitignore"
             ".marksman.toml"
