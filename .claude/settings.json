@@ -1,4 +1,7 @@
 {
+  "permissions": {
+    "allow": ["Bash(nix run '.#sync-template-files')"]
+  },
   "hooks": {
     "PostToolUse": [
       {
