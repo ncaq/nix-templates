@@ -8,3 +8,24 @@ updates:
       - "Type: Dependencies"
     schedule:
       interval: daily
+  - package-ecosystem: npm
+    directories:
+      - "**/*"
+    open-pull-requests-limit: 20
+    labels:
+      - "Type: Dependencies"
+    schedule:
+      interval: monthly
+    groups:
+      types:
+        patterns:
+          - "@types/*"
+        exclude-patterns:
+          - "@types/node"
+      eslint:
+        patterns:
+          - "*eslint*"
+    ignore:
+      - dependency-name: "@types/node"
+        update-types:
+          - "version-update:semver-major"
