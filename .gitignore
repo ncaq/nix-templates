@@ -1,3 +1,5 @@
+# Nix
+
 # Ignore build outputs from performing a nix-build or `nix build` command
 result
 result-*
@@ -7,3 +9,9 @@ result-*
 
 # Ignore local override env
 .env.local
+
+# Project
+
+# テンプレートにはflake.lockをコミットしないのが一般的。
+# `nix flake init`でテンプレートを使う際にユーザー側でflake.lockが自動生成される想定。
+templates/**/flake.lock

@@ -78,14 +78,16 @@ Stopフックで`nix fmt`が自動実行されます。
 
 ## 統合チェック
 
-以下のコマンドでプロジェクト全体のフォーマットチェックとNixOS/home-manager構成の評価チェックが行えます。
+以下のコマンドでプロジェクト全体のチェックが行えます。
+フォーマットやリントやテストなどがまとめて実行されます。
 
 ```console
 nix-fast-build --option eval-cache false --no-link --skip-cached --no-nom
 ```
 
 `nix-fast-build`は`nix-eval-jobs`を使って`checks`を並列評価・ビルドします。
-`nix flake check`と比べて、NixOS構成の評価が並列化されるため高速です。
+`nix flake check`と比べて、
+評価が並列化されるため高速です。
 
 # リポジトリ構成
 

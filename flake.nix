@@ -30,6 +30,10 @@
             path = ./templates/basic;
             description = "Basic Nix flake template with treefmt, CI, and dev tools";
           };
+          typescript = {
+            path = ./templates/typescript;
+            description = "TypeScript project template with npm, vitest, ESLint, and Prettier";
+          };
         };
       };
 
@@ -39,18 +43,20 @@
           ...
         }:
         let
+          templateDirs = [
+            "basic"
+            "typescript"
+          ];
+
+          # テンプレート間で共通のファイル(各テンプレートに同期される)
           syncFiles = [
-            ".claude/settings.json"
             ".dir-locals.el"
             ".editorconfig"
             ".editorconfig-checker.json"
             ".envrc"
             ".github/actions/setup-nix/action.yml"
-            ".github/copilot-instructions.md"
-            ".github/dependabot.yml"
             ".github/git-commit-instructions.md"
             ".github/release.yml"
-            ".gitignore"
             ".marksman.toml"
           ];
         in
@@ -99,34 +105,44 @@
               ];
               text = ''
                 root="''${1:-.}"
-                ${pkgs.lib.concatMapStringsSep "\n" (f: ''
-                  mkdir -p "$root/templates/basic/$(dirname "${f}")"
-                  cp "$root/${f}" "$root/templates/basic/${f}"
-                '') syncFiles}
+                ${pkgs.lib.concatMapStringsSep "\n" (
+                  dir:
+                  pkgs.lib.concatMapStringsSep "\n" (f: ''
+                    mkdir -p "$root/templates/${dir}/$(dirname "${f}")"
+                    cp "$root/${f}" "$root/templates/${dir}/${f}"
+                  '') syncFiles
+                ) templateDirs}
                 # CLAUDE.mdシンボリックリンクの確認・作成
-                if [ ! -L "$root/templates/basic/CLAUDE.md" ]; then
-                  ln -sf .github/copilot-instructions.md "$root/templates/basic/CLAUDE.md"
-                fi
+                ${pkgs.lib.concatMapStringsSep "\n" (dir: ''
+                  if [ ! -L "$root/templates/${dir}/CLAUDE.md" ]; then
+                    ln -sf .github/copilot-instructions.md "$root/templates/${dir}/CLAUDE.md"
+                  fi
+                '') templateDirs}
                 echo "Template files synced."
               '';
             };
           };
           checks = {
             template-sync = pkgs.runCommand "template-sync-check" { } ''
-              ${pkgs.lib.concatMapStringsSep "\n" (f: ''
-                diff "${./.}/${f}" "${./templates/basic}/${f}" || {
-                  echo "File out of sync: ${f}"
-                  echo "Run: nix run .#sync-template-files"
-                  exit 1
-                }
-              '') syncFiles}
+              ${pkgs.lib.concatMapStringsSep "\n" (
+                dir:
+                pkgs.lib.concatMapStringsSep "\n" (f: ''
+                  diff "${./.}/${f}" "${./templates}/${dir}/${f}" || {
+                    echo "File out of sync: templates/${dir}/${f}"
+                    echo "Run: nix run .#sync-template-files"
+                    exit 1
+                  }
+                '') syncFiles
+              ) templateDirs}
               # CLAUDE.mdシンボリックリンクの検証
-              target=$(readlink "${./templates/basic}/CLAUDE.md")
-              if [ "$target" != ".github/copilot-instructions.md" ]; then
-                echo "CLAUDE.md symlink target is wrong: $target"
-                echo "Expected: .github/copilot-instructions.md"
-                exit 1
-              fi
+              ${pkgs.lib.concatMapStringsSep "\n" (dir: ''
+                target=$(readlink "${./templates}/${dir}/CLAUDE.md")
+                if [ "$target" != ".github/copilot-instructions.md" ]; then
+                  echo "templates/${dir}/CLAUDE.md symlink target is wrong: $target"
+                  echo "Expected: .github/copilot-instructions.md"
+                  exit 1
+                fi
+              '') templateDirs}
               touch $out
             '';
           };

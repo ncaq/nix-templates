@@ -9,8 +9,7 @@ updates:
     schedule:
       interval: daily
   - package-ecosystem: npm
-    directories:
-      - "**/*"
+    directory: "/"
     open-pull-requests-limit: 20
     labels:
       - "Type: Dependencies"

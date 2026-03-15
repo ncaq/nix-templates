@@ -59,6 +59,19 @@ Nix言語では識別子にハイフンを使用できます。
 基本的に`writeShellScript`などよりも、
 `writeShellApplication`を優先的に使用します。
 
+# TypeScript
+
+## パッケージマネージャ
+
+npmを使用します。
+
+以下のコマンドは禁止です:
+
+- `npx`: 代わりに`npm exec`またはPATH上のコマンドを使用
+- `yarn`
+- `pnpm`
+- `pnpx`
+
 # 重要コマンド
 
 ## フォーマット
