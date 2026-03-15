@@ -53,6 +53,7 @@
               ./src
               ./test
               ./.editorconfig
+              ./.gitignore
               ./eslint.config.ts
               ./package.json
               ./tsconfig.json
