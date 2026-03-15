@@ -55,9 +55,7 @@
             ".editorconfig-checker.json"
             ".envrc"
             ".github/actions/setup-nix/action.yml"
-            ".github/dependabot.yml"
             ".github/release.yml"
-            ".gitignore"
             ".marksman.toml"
           ];
         in
