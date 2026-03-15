@@ -6,6 +6,10 @@ inputs:
     description: Cachix authentication token
     required: false
     default: ""
+  cachix-name:
+    description: Cachix cache name
+    required: false
+    default: ncaq
 
 runs:
   using: composite
@@ -26,8 +30,8 @@ runs:
           nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
 
     - name: Setup Cachix cache
-      if: inputs.cachix-auth-token != ''
+      if: inputs.cachix-auth-token != '' && inputs.cachix-name != ''
       uses: cachix/cachix-action@3ba601ff5bbb07c7220846facfa2cd81eeee15a1 # v16
       with:
-        name: ncaq
+        name: "${{ inputs.cachix-name }}"
         authToken: "${{ inputs.cachix-auth-token }}"
