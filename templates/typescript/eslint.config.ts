@@ -1,29 +1,35 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { includeIgnoreFile } from "@eslint/compat";
-import eslint from "@eslint/js";
+import { configs as eslintConfigs } from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import eslintConfigPrettier from "eslint-config-prettier";
 import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
-import * as importPlugin from "eslint-plugin-import-x";
-import nodePlugin from "eslint-plugin-n";
+import { flatConfigs as importPluginConfig } from "eslint-plugin-import-x";
+import { configs as nodePluginConfigs } from "eslint-plugin-n";
 import { configs as tseslintConfigs } from "typescript-eslint";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+/** ES Modulesだと使用できない変数のエミュレート。 */
+const __filename: string = fileURLToPath(import.meta.url);
+/** ES Modulesだと使用できない変数のエミュレート。 */
+const __dirname: string = path.dirname(__filename);
+/** そのプロジェクトの.gitignoreのパス。 */
+const gitignorePath: string = path.resolve(__dirname, ".gitignore");
 
-const gitignorePath = path.resolve(__dirname, ".gitignore");
-
+/** ESLintが使用する設定を定義してexport。 */
 export default defineConfig(
-  includeIgnoreFile(gitignorePath),
-  eslintConfigPrettier,
-  importPlugin.flatConfigs.recommended,
-  importPlugin.flatConfigs.typescript,
+  // どのプロジェクトでも共通して適用するルール。
+  includeIgnoreFile(gitignorePath), // .gitignoreから無視するべきファイルを継承。
+  eslintConfigPrettier, // prettierと競合しないようにします。
+  importPluginConfig.recommended, // importの推奨プリセット。
+  importPluginConfig.typescript, // importのTypeScript向け推奨プリセット。
   {
     rules: {
+      // 名前別だけだけではなくカテゴリ別にもソートします。
       "import-x/order": ["warn", { alphabetize: { order: "asc", orderImportKind: "asc" } }],
     },
     settings: {
+      // TypeScriptのimportを柔軟に解決できるようにします。
       "import-x/resolver-next": [
         createTypeScriptImportResolver({
           alwaysTryTypes: true,
@@ -31,21 +37,64 @@ export default defineConfig(
       ],
     },
   },
-  eslint.configs.recommended,
-  ...tseslintConfigs.strictTypeChecked,
-  ...tseslintConfigs.stylisticTypeChecked,
+  eslintConfigs.recommended, // ESLint全体の推奨プリセット。
   {
+    rules: {
+      // 使ってないシンボルはアンダースコア始めにすることで警告を回避します。
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          argsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
+          destructuredArrayIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+        },
+      ],
+    },
+  },
+  {
+    // TypeScript向けのルール。
+    files: ["**/*.{ts,tsx,cts,mts}"],
+    extends: [tseslintConfigs.strictTypeChecked, tseslintConfigs.stylisticTypeChecked],
+    languageOptions: {
+      parserOptions: {
+        project: ["tsconfig.json"],
+        tsconfigRootDir: __dirname,
+      },
+    },
+    rules: {
+      // トップレベル関数には明示的な型アノテーションを要求。
+      // Haskell, Rust, Scalaコミュニティの結論と同じことを考えていて、
+      // トップレベル関数は暗黙的な型推論任せにするべきではないと考えています。
+      "@typescript-eslint/explicit-function-return-type": [
+        "error",
+        {
+          allowExpressions: true, // インラインな関数式にはいちいち要求しません。
+          allowConciseArrowFunctionExpressionsStartingWithVoid: true, // voidを返すことが明白な場合は要求しません。
+          allowIIFEs: true, // 即時実行関数の型を持ってもあまり意味がないので要求しません。
+        },
+      ],
+    },
+  },
+  {
+    // TypeScriptルールでJavaScriptもlintします。
+    // 主に`@ts-check`を有効にしている環境を想定しています。
+    // 厳密には個別にルールを管理するべきなのですが、
+    // あまり生のJavaScriptを書かないので、
+    // TypeScriptルールプリセットを流用します。
+    files: ["**/*.{js,jsx,cts,mjs}"],
     languageOptions: {
       parserOptions: {
         projectService: {
-          // TypeScriptルールでJavaScriptをlintする時はデフォルトのprojectを使用。
           allowDefaultProject: ["*.js", "*.jsx", "*.cjs", "*.mjs"],
         },
-        tsconfigRootDir: import.meta.dirname,
+        project: ["tsconfig.json"],
+        tsconfigRootDir: __dirname,
       },
     },
   },
-  nodePlugin.configs["flat/recommended-module"],
+  // Node.js向けのルール。
+  nodePluginConfigs["flat/recommended-module"],
   {
     rules: {
       // nodeビルトインのモジュールをわかりやすくする。
@@ -62,27 +111,6 @@ export default defineConfig(
       "n/prefer-promises/fs": "error",
       // 誤爆が多いし、他のlinterでカバーしているので多分必要ない。
       "n/no-missing-import": "off",
-    },
-  },
-  // 妥当なルール改変。
-  {
-    rules: {
-      // アンダースコアつきの引数は使わなくても無視する対象。
-      "@typescript-eslint/no-unused-vars": [
-        "warn",
-        {
-          argsIgnorePattern: "^_",
-          caughtErrorsIgnorePattern: "^_",
-          destructuredArrayIgnorePattern: "^_",
-          varsIgnorePattern: "^_",
-        },
-      ],
-    },
-  },
-  {
-    files: ["**/*.{ts,cts,mts,tsx}"],
-    rules: {
-      "@typescript-eslint/explicit-function-return-type": ["error", { allowExpressions: true }],
     },
   },
 );
