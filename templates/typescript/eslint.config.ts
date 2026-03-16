@@ -25,7 +25,7 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
   importPluginConfig.typescript, // importのTypeScript向け推奨プリセット。
   {
     rules: {
-      // 名前別だけだけではなくカテゴリ別にもソートします。
+      // 名前別だけではなくカテゴリ別にもソートします。
       "import-x/order": ["warn", { alphabetize: { order: "asc", orderImportKind: "asc" } }],
     },
     settings: {
