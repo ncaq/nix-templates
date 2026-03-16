@@ -66,9 +66,7 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
       },
     },
     rules: {
-      // トップレベル関数には明示的な型アノテーションを要求。
-      // Haskell, Rust, Scalaコミュニティの結論と同じことを考えていて、
-      // トップレベル関数は暗黙的な型推論任せにするべきではないと考えています。
+      // 関数には基本的に明示的な型アノテーションを要求。
       "@typescript-eslint/explicit-function-return-type": [
         "error",
         {
