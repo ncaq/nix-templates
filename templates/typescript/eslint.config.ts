@@ -82,7 +82,7 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
     // 厳密には個別にルールを管理するべきなのですが、
     // あまり生のJavaScriptを書かないので、
     // TypeScriptルールプリセットを流用します。
-    files: ["**/*.{js,jsx,cts,mjs}"],
+    files: ["**/*.{js,jsx,cjs,mjs}"],
     languageOptions: {
       parserOptions: {
         projectService: {
