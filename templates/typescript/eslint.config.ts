@@ -17,7 +17,7 @@ const __dirname: string = path.dirname(__filename);
 const gitignorePath: string = path.resolve(__dirname, ".gitignore");
 
 /** ESLintが使用する設定を定義してexport。 */
-export default defineConfig(
+const config: ReturnType<typeof defineConfig> = defineConfig(
   // どのプロジェクトでも共通して適用するルール。
   includeIgnoreFile(gitignorePath), // .gitignoreから無視するべきファイルを継承。
   eslintConfigPrettier, // prettierと競合しないようにします。
@@ -114,3 +114,4 @@ export default defineConfig(
     },
   },
 );
+export default config;
