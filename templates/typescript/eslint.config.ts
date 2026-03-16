@@ -93,6 +93,7 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
         tsconfigRootDir: __dirname,
       },
     },
+    ...tseslint.configs.disableTypeChecked, // JavaScriptではESLint側での型チェックが必要なルールは無効化。
   },
   // Node.js向けのルール。
   nodePluginConfigs["flat/recommended-module"],
