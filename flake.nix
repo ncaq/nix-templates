@@ -58,6 +58,7 @@
             ".github/git-commit-instructions.md"
             ".github/release.yml"
             ".marksman.toml"
+            "_typos.toml"
           ];
 
           sync-template-files = pkgs.writeShellApplication {
@@ -109,24 +110,11 @@
               shellcheck.enable = true;
               shfmt.enable = true;
               typos.enable = true;
+              zizmor.enable = true;
 
               statix = {
                 enable = true;
                 disabled-lints = [ "eta_reduction" ];
-              };
-
-              zizmor = {
-                enable = true;
-                includes = [
-                  ".github/workflows/*.yml"
-                  ".github/workflows/*.yaml"
-                  ".github/actions/**/*.yml"
-                  ".github/actions/**/*.yaml"
-                  "templates/*/.github/workflows/*.yml"
-                  "templates/*/.github/workflows/*.yaml"
-                  "templates/*/.github/actions/**/*.yml"
-                  "templates/*/.github/actions/**/*.yaml"
-                ];
               };
             };
             settings.formatter = {
