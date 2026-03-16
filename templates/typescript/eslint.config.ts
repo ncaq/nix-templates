@@ -7,7 +7,7 @@ import eslintConfigPrettier from "eslint-config-prettier";
 import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
 import { flatConfigs as importPluginConfig } from "eslint-plugin-import-x";
 import { configs as nodePluginConfigs } from "eslint-plugin-n";
-import { configs as tseslintConfigs } from "typescript-eslint";
+import { default as tseslint } from "typescript-eslint";
 
 /** ES Modulesだと使用できない変数のエミュレート。 */
 const __filename: string = fileURLToPath(import.meta.url);
@@ -40,8 +40,8 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
   // ESLint全体の推奨プリセット。
   eslintConfigs.recommended,
   // typescript-eslintの推奨プリセット。
-  ...tseslintConfigs.strictTypeChecked,
-  ...tseslintConfigs.stylisticTypeChecked,
+  tseslint.configs.recommendedTypeChecked,
+  tseslint.configs.stylisticTypeChecked,
   {
     rules: {
       // 使ってないシンボルはアンダースコア始めにすることで警告を回避します。
