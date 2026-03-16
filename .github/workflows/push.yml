@@ -22,3 +22,8 @@ jobs:
         with:
           cachix-auth-token: "${{ secrets.CACHIX_AUTH_TOKEN }}"
       - run: nix run '.#nix-fast-build' -- --option eval-cache false --no-link --skip-cached --no-nom
+        # nix-fast-buildはflake.lockをignoreしている状態では働かないため、nix flake checkを使います。
+      - run: nix flake check
+        working-directory: ./templates/basic
+      - run: nix flake check
+        working-directory: ./templates/typescript
