@@ -37,7 +37,11 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
       ],
     },
   },
-  eslintConfigs.recommended, // ESLint全体の推奨プリセット。
+  // ESLint全体の推奨プリセット。
+  eslintConfigs.recommended,
+  // typescript-eslintの推奨プリセット。
+  ...tseslintConfigs.strictTypeChecked,
+  ...tseslintConfigs.stylisticTypeChecked,
   {
     rules: {
       // 使ってないシンボルはアンダースコア始めにすることで警告を回避します。
@@ -55,7 +59,6 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
   {
     // TypeScript向けのルール。
     files: ["**/*.{ts,tsx,cts,mts}"],
-    extends: [tseslintConfigs.strictTypeChecked, tseslintConfigs.stylisticTypeChecked],
     languageOptions: {
       parserOptions: {
         project: ["tsconfig.json"],
