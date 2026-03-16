@@ -1,0 +1,3 @@
+[default.extend-words]
+# Immediately Invoked Function Expressions (IIFEs) はESLintの正式な用語。
+IIFEs = "IIFEs"

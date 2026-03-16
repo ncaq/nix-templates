@@ -58,6 +58,7 @@
             ".github/git-commit-instructions.md"
             ".github/release.yml"
             ".marksman.toml"
+            "_typos.toml"
           ];
 
           sync-template-files = pkgs.writeShellApplication {
