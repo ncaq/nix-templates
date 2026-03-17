@@ -27,8 +27,10 @@ updates:
       vite:
         patterns:
           - "vite"
+          - "vite-*"
           - "@vitejs/*"
           - "vitest"
+          - "vitest-*"
           - "@vitest/*"
     ignore:
       - dependency-name: "@types/node"
