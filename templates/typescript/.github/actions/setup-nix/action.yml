@@ -2,14 +2,18 @@ name: Setup Nix
 description: Install Nix and configure caches
 
 inputs:
-  cachix-auth-token:
-    description: Cachix authentication token
-    required: false
-    default: ""
   cachix-name:
     description: Cachix cache name
     required: false
     default: ncaq
+  cachix-auth-token:
+    description: Cachix authentication token
+    required: false
+    default: ""
+  niks3-endpoint:
+    description: niks3 server endpoint URL
+    required: false
+    default: "https://niks3-public.ncaq.net"
 
 runs:
   using: composite
@@ -27,3 +31,14 @@ runs:
       with:
         name: "${{ inputs.cachix-name }}"
         authToken: "${{ inputs.cachix-auth-token }}"
+        # フォークからのPRのみキャッシュへのプッシュをスキップ
+        skipPush: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
+
+    - name: Setup niks3 cache
+      uses: aleadag/niks3-action@ea2e7c1e92316f5da40a3b6fa867313a3e176fd3 # v0.4.2
+      with:
+        endpoint: "${{ inputs.niks3-endpoint }}"
+        use-oidc: true
+        push-flake-inputs: true
+        # フォークからのPRのみキャッシュへのプッシュをスキップ
+        skip-push: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
