@@ -1,6 +1,7 @@
 name: release
 
 on:
+  # zizmor: ignore[dangerous-triggers] -- branchesで制限済み、信頼できない入力は使用していない
   workflow_run:
     workflows: [check]
     types: [completed]
