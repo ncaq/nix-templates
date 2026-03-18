@@ -26,7 +26,7 @@ runs:
         extra_nix_config: ${{ runner.environment == 'github-hosted' && 'accept-flake-config = true' || '' }}
 
     - name: Setup Cachix cache
-      if: inputs.cachix-auth-token != '' && inputs.cachix-name != ''
+      if: inputs.cachix-name != '' && inputs.cachix-auth-token != ''
       uses: cachix/cachix-action@3ba601ff5bbb07c7220846facfa2cd81eeee15a1 # v16
       with:
         name: "${{ inputs.cachix-name }}"
