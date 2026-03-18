@@ -1,36 +1,21 @@
-name: push
+name: release
 
 on:
-  workflow_dispatch:
-  push:
+  workflow_run:
+    workflows: [check]
+    types: [completed]
     branches: [master, main]
-  pull_request:
-  merge_group:
 
 permissions:
-  contents: read # リポジトリコンテンツの読み取り
+  contents: write # タグ作成のため
 
 jobs:
-  nix-fast-build:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-        with:
-          persist-credentials: false
-      - uses: ./.github/actions/setup-nix
-      - run: nix run '.#nix-fast-build' -- --option eval-cache false --no-link --skip-cached --no-nom
-
   release:
-    needs: [nix-fast-build]
     runs-on: ubuntu-24.04
-    permissions:
-      contents: write # タグ作成のため
     concurrency:
       group: release-${{ github.ref }}
       cancel-in-progress: false
-    # デフォルトブランチへのpushの場合のみ実行
-    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    if: github.event.workflow_run.conclusion == 'success'
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
@@ -39,16 +24,10 @@ jobs:
       - name: Extract version
         id: version
         run: |
-          set -euo pipefail
-          VERSION=$(node -p "require('./package.json').version")
-          if [ "$VERSION" = "0.0.0" ]; then
-            echo "Initial version, skipping release"
-          elif ! echo "$VERSION" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$'; then
-            echo "Invalid semver format: $VERSION"
-            exit 1
-          else
-            echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          fi
+          # プロジェクトに合わせてバージョン取得方法を実装してください。
+          # 例: package.jsonのversion, Cargo.tomlのversion, cabalのversionなど。
+          # echo "version=..." >> "$GITHUB_OUTPUT"
+          echo "Not implemented: version extraction"
       - name: Check if tag exists
         id: check_tag
         env:
