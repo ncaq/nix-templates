@@ -2,6 +2,10 @@ name: Setup Nix
 description: Install Nix and configure caches
 
 inputs:
+  extra-nix-config:
+    description: Additional nix.conf settings to append
+    required: false
+    default: ""
   cachix-name:
     description: Cachix cache name
     required: false
@@ -23,7 +27,9 @@ runs:
         # セルフホストランナーでうっかり外部からの悪意あるPRを実行許可してしまい、
         # flake.nixの設定を受け入れると好きなキャッシュを入れられたりしてセキュリティリスクがあるため、
         # GitHubホストランナーでのみflake.nixの設定を自動で受け入れるようにしています。
-        extra_nix_config: ${{ runner.environment == 'github-hosted' && 'accept-flake-config = true' || '' }}
+        extra_nix_config: |
+          ${{ runner.environment == 'github-hosted' && 'accept-flake-config = true' || '' }}
+          ${{ inputs.extra-nix-config }}
 
     - name: Setup Cachix cache
       if: inputs.cachix-name != '' && inputs.cachix-auth-token != ''
