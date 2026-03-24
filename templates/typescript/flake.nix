@@ -95,15 +95,7 @@
             };
             settings.formatter = {
               editorconfig-checker = {
-                command = pkgs.lib.getExe (
-                  pkgs.writeShellApplication {
-                    name = "editorconfig-checker-wrapper";
-                    runtimeInputs = [ pkgs.editorconfig-checker ];
-                    text = ''
-                      editorconfig-checker "$@"
-                    '';
-                  }
-                );
+                command = pkgs.editorconfig-checker;
                 includes = [ "*" ];
               };
             };
