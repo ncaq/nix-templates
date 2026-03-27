@@ -111,12 +111,12 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
       "n/prefer-global/crypto": "error",
       "n/prefer-global/text-decoder": "error",
       "n/prefer-global/text-encoder": "error",
+      "n/prefer-global/timers": "error",
       "n/prefer-global/url": "error",
       "n/prefer-global/url-search-params": "error",
       // Node.js固有のグローバルはimportを強制して依存を明示します。
       "n/prefer-global/buffer": ["error", "never"],
       "n/prefer-global/process": ["error", "never"],
-      "n/prefer-global/timers": ["error", "never"],
     },
   },
 );
