@@ -16,7 +16,7 @@ const __dirname: string = path.dirname(__filename);
 /** そのプロジェクトの.gitignoreのパス。 */
 const gitignorePath: string = path.resolve(__dirname, ".gitignore");
 
-/** ESLintが使用する設定を定義してexport。 */
+/** ESLintが使用する設定を定義。 */
 const config: ReturnType<typeof defineConfig> = defineConfig(
   // どのプロジェクトでも共通して適用するルール。
   includeIgnoreFile(gitignorePath), // .gitignoreから無視するべきファイルを継承。
@@ -99,21 +99,27 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
   nodePluginConfigs["flat/recommended-module"],
   {
     rules: {
-      // nodeビルトインのモジュールをわかりやすくする。
+      // 複雑な設定下でのimportを解決できないため無効化します。eslint-plugin-import-xがあるため問題になりません。
+      "n/no-missing-import": "off",
+      // Node.jsビルトインのモジュールをimportする時にprefixを強制して依存をわかりやすくします。
       "n/prefer-node-protocol": "error",
-      // 利用方法を統一したい。
-      "n/prefer-global/buffer": "error",
+      // Promise APIを優先して使用します。
+      "n/prefer-promises/dns": "error",
+      "n/prefer-promises/fs": "error",
+      // Web標準としてほぼ全ランタイムにグローバルで存在するものはグローバルを使います。
       "n/prefer-global/console": "error",
-      "n/prefer-global/process": "error",
+      "n/prefer-global/crypto": "error",
       "n/prefer-global/text-decoder": "error",
       "n/prefer-global/text-encoder": "error",
       "n/prefer-global/url": "error",
       "n/prefer-global/url-search-params": "error",
-      "n/prefer-promises/dns": "error",
-      "n/prefer-promises/fs": "error",
-      // 誤爆が多いし、他のlinterでカバーしているので多分必要ない。
-      "n/no-missing-import": "off",
+      // Node.js固有のグローバルはimportを強制して依存を明示します。
+      "n/prefer-global/buffer": ["error", "never"],
+      "n/prefer-global/process": ["error", "never"],
+      "n/prefer-global/timers": ["error", "never"],
     },
   },
 );
+// ESLintの設定をエクスポート。
+// 型定義とdefault exportが両立できないため分けています。
 export default config;
