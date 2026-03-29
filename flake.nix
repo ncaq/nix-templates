@@ -61,6 +61,18 @@
             "_typos.toml"
           ];
 
+          # 各テンプレートに作成するシンボリックリンク(target -> linkName)
+          syncSymlink = [
+            {
+              target = ".github/copilot-instructions.md";
+              linkName = "AGENTS.md";
+            }
+            {
+              target = ".github/copilot-instructions.md";
+              linkName = "CLAUDE.md";
+            }
+          ];
+
           sync-template-files = pkgs.writeShellApplication {
             name = "sync-template-files";
             runtimeInputs = with pkgs; [
@@ -75,12 +87,18 @@
                   cp "$root/${f}" "$root/templates/${dir}/${f}"
                 '') syncFiles
               ) templateDirs}
-              # CLAUDE.mdシンボリックリンクの確認・作成
-              ${pkgs.lib.concatMapStringsSep "\n" (dir: ''
-                if [ ! -L "$root/templates/${dir}/CLAUDE.md" ]; then
-                  ln -sf .github/copilot-instructions.md "$root/templates/${dir}/CLAUDE.md"
-                fi
-              '') templateDirs}
+              # シンボリックリンクの確認・作成
+              ${pkgs.lib.concatMapStringsSep "\n" (
+                dir:
+                pkgs.lib.concatMapStringsSep "\n" (
+                  { target, linkName }:
+                  ''
+                    if [ ! -L "$root/templates/${dir}/${linkName}" ]; then
+                      ln -sf ${target} "$root/templates/${dir}/${linkName}"
+                    fi
+                  ''
+                ) syncSymlink
+              ) templateDirs}
               echo "Template files synced."
             '';
           };
@@ -143,15 +161,21 @@
                   }
                 '') syncFiles
               ) templateDirs}
-              # CLAUDE.mdシンボリックリンクの検証
-              ${pkgs.lib.concatMapStringsSep "\n" (dir: ''
-                target=$(readlink "${./templates}/${dir}/CLAUDE.md")
-                if [ "$target" != ".github/copilot-instructions.md" ]; then
-                  echo "templates/${dir}/CLAUDE.md symlink target is wrong: $target"
-                  echo "Expected: .github/copilot-instructions.md"
-                  exit 1
-                fi
-              '') templateDirs}
+              # シンボリックリンクの検証
+              ${pkgs.lib.concatMapStringsSep "\n" (
+                dir:
+                pkgs.lib.concatMapStringsSep "\n" (
+                  { target, linkName }:
+                  ''
+                    actual=$(readlink "${./templates}/${dir}/${linkName}")
+                    if [ "$actual" != "${target}" ]; then
+                      echo "templates/${dir}/${linkName} symlink target is wrong: $actual"
+                      echo "Expected: ${target}"
+                      exit 1
+                    fi
+                  ''
+                ) syncSymlink
+              ) templateDirs}
               touch $out
             '';
           };
