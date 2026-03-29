@@ -14,6 +14,15 @@ nix flake init -t 'github:ncaq/nix-templates#basic'
 
 treefmt, CI, devShellなどを含む基本的なNix flakeテンプレート。
 
+### typescript
+
+TypeScriptプロジェクト向けの基本テンプレート。
+basicの内容に加え、npm, vitest, ESLint, Prettierを含みます。
+
+```zsh
+nix flake init -t 'github:ncaq/nix-templates#typescript'
+```
+
 ## テンプレートファイルの同期
 
 `templates/`以下の各テンプレートには、
