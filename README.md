@@ -2,17 +2,15 @@
 
 Nix flake templates.
 
-## Usage
-
-```zsh
-nix flake init -t 'github:ncaq/nix-templates#basic'
-```
-
 ## Templates
 
 ### basic
 
 treefmt, CI, devShellなどを含む基本的なNix flakeテンプレート。
+
+```zsh
+nix flake init -t 'github:ncaq/nix-templates#basic'
+```
 
 ### typescript
 
@@ -23,10 +21,12 @@ basicの内容に加え、npm, vitest, ESLint, Prettierを含みます。
 nix flake init -t 'github:ncaq/nix-templates#typescript'
 ```
 
-## テンプレートファイルの同期
+## Development
+
+### テンプレートファイルの同期
 
 `templates/`以下の各テンプレートには、
-ルートリポジトリと共通のファイル(`.editorconfig`, `.github/actions/`, `.gitignore`など)が含まれています。
+ルートリポジトリと共通のファイル(`.editorconfig`, `.github/actions/`など)が含まれています。
 これらはルートのファイルのコピーであり、
 `checks.template-sync`で差分がないことを検証しています。
 
@@ -37,4 +37,4 @@ nix flake init -t 'github:ncaq/nix-templates#typescript'
 nix run '.#sync-template-files'
 ```
 
-テンプレート固有のファイル(`flake.nix`, `README.md`, `.github/workflows/push.yml`)は同期対象外です。
+テンプレート固有のファイル(`flake.nix`, `README.md`など)は同期対象外です。
