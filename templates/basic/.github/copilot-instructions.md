@@ -2,8 +2,10 @@
 
 ## 言語
 
-AIは人間にテキストを出力するときは日本語で出力してください。
-しかしコードのコメントなどが日本語ではない場合は元の言語のままにしてください。
+AIは人間に話すときは日本語を使ってください。
+
+しかし既存のコードのコメントなどが日本語ではない場合は、
+コメント等は既存の言語に合わせてください。
 
 ## 記号
 
@@ -91,8 +93,11 @@ nix-fast-build --option eval-cache false --no-link --skip-cached --no-nom
 
 # リポジトリ構成
 
-`CLAUDE.md`は以下のように`.github/copilot-instructions.md`のシンボリックリンクになっています。
+Codex向けの`AGENTS.md`とClaude Code向けの`CLAUDE.md`は以下のように`.github/copilot-instructions.md`のシンボリックリンクになっています。
 
 ```console
+AGENTS.md -> .github/copilot-instructions.md
 CLAUDE.md -> .github/copilot-instructions.md
 ```
+
+これにより各種LLM向けのドキュメントを一元管理しています。
