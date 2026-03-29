@@ -52,7 +52,6 @@
           syncFiles = [
             ".dir-locals.el"
             ".editorconfig"
-            ".editorconfig-checker.json"
             ".envrc"
             ".github/actions/setup-nix/action.yml"
             ".github/git-commit-instructions.md"
