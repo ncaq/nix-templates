@@ -93,9 +93,7 @@
                 pkgs.lib.concatMapStringsSep "\n" (
                   { target, linkName }:
                   ''
-                    if [ ! -L "$root/templates/${dir}/${linkName}" ]; then
-                      ln -sf ${target} "$root/templates/${dir}/${linkName}"
-                    fi
+                    ln -sf ${target} "$root/templates/${dir}/${linkName}"
                   ''
                 ) syncSymlink
               ) templateDirs}
