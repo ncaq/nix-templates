@@ -20,7 +20,7 @@ nix-fast-build --option eval-cache false --no-link --skip-cached
 
 `nix-fast-build`の以下の、
 
-``` console
+```console
 --no-nom              Don't use nix-output-monitor to print build output (default: false)
 ```
 
