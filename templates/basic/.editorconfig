@@ -38,6 +38,10 @@ indent_size = unset
 # 設定やドキュメントのファイルはURLなど改行困難なものが多いため行幅制限を緩めます。
 max_line_length = 200
 
+[.env{,.*}]
+# 接続文字列やAPIキーなど長い設定値を含むため行幅制限を無効化します。
+max_line_length = off
+
 [*.bat]
 charset = latin1
 end_of_line = crlf

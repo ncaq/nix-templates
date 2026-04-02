@@ -53,6 +53,7 @@
             ".dir-locals.el"
             ".editorconfig"
             ".envrc"
+            ".mcp.json"
             ".github/actions/setup-nix/action.yml"
             ".github/git-commit-instructions.md"
             ".github/release.yml"
@@ -190,6 +191,10 @@
 
               # nixの関連ツール。
               nix-fast-build
+
+              # GitHub関連ツール。
+              gh
+              github-mcp-server
             ];
           };
         };

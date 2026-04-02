@@ -1,18 +1,20 @@
 # Project Name
 
-## Setup
+## Development
+
+### Setup
 
 ```console
 direnv allow
 ```
 
-## Format
+### Format
 
 ```console
 nix fmt
 ```
 
-## Check
+### Check
 
 ```console
 nix-fast-build --option eval-cache false --no-link --skip-cached

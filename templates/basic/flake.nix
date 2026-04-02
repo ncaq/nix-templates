@@ -72,6 +72,10 @@
 
               # nixの関連ツール。
               nix-fast-build
+
+              # GitHub関連ツール。
+              gh
+              github-mcp-server
             ];
           };
         };
