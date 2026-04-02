@@ -127,8 +127,9 @@
               # nixの関連ツール。
               nix-fast-build
 
-              # CLIツール。
+              # GitHub関連ツール。
               gh
+              github-mcp-server
 
               # Node.js
               nodejs
