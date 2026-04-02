@@ -11,6 +11,7 @@
   "enabledPlugins": {
     "kyosei@konoka": true
   },
+  "enableAllProjectMcpServers": true,
   "permissions": {
     "allow": [
       "Bash(actionlint:*)",
