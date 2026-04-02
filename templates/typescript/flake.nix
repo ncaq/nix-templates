@@ -127,6 +127,9 @@
               # nixの関連ツール。
               nix-fast-build
 
+              # CLIツール。
+              gh
+
               # Node.js
               nodejs
             ];

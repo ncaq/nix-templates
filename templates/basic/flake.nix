@@ -72,6 +72,9 @@
 
               # nixの関連ツール。
               nix-fast-build
+
+              # CLIツール。
+              gh
             ];
           };
         };
