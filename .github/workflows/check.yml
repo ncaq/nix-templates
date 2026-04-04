@@ -30,4 +30,6 @@ jobs:
       - run: nix flake check
         working-directory: ./templates/basic
       - run: nix flake check
+        working-directory: ./templates/github-action
+      - run: nix flake check
         working-directory: ./templates/typescript
