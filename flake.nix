@@ -30,6 +30,10 @@
             path = ./templates/basic;
             description = "Basic Nix flake template with treefmt, CI, and dev tools";
           };
+          github-action = {
+            path = ./templates/github-action;
+            description = "GitHub Action template with composite action, VERSION-based release, and Nix CI";
+          };
           typescript = {
             path = ./templates/typescript;
             description = "TypeScript project template with npm, vitest, ESLint, and Prettier";
@@ -45,6 +49,7 @@
         let
           templateDirs = [
             "basic"
+            "github-action"
             "typescript"
           ];
 
