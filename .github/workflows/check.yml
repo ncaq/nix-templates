@@ -26,7 +26,8 @@ jobs:
         # templateではflake.lockをコミットしていません。
         # templateはnix flake initで使われるため、ユーザの環境で新しいflake.lockが生成される方が望ましく、
         # 作成者の環境のスナップショットであるflake.lockを配布する意味がないためです。
-        # そのため、ここでのチェックは再現性よりもtemplateが最新のnixpkgsで壊れていないかの検証を目的としています。
+        # そのため、ここでのチェックは再現性よりも、
+        # templateが最新のnixpkgsで壊れていないかの検証を目的としています。
       - run: nix flake check
         working-directory: ./templates/basic
       - run: nix flake check
