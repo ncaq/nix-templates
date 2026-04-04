@@ -195,6 +195,7 @@
               zizmor
 
               # nixの関連ツール。
+              nil
               nix-fast-build
 
               # GitHub関連ツール。
