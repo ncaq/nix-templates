@@ -4,12 +4,13 @@
       "source": {
         "source": "github",
         "repo": "ncaq/konoka",
-        "ref": "v2.0.3"
+        "ref": "v2.1.0"
       }
     }
   },
   "enabledPlugins": {
-    "kyosei@konoka": true
+    "kyosei@konoka": true,
+    "nix-tasuke@konoka": true
   },
   "enableAllProjectMcpServers": true,
   "permissions": {
@@ -58,20 +59,6 @@
       "mcp__deepwiki",
       "mcp__github",
       "mcp__nixos"
-    ]
-  },
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Stop",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "cd \"$CLAUDE_PROJECT_DIR\" && nix fmt",
-            "timeout": 30
-          }
-        ]
-      }
     ]
   }
 }

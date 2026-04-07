@@ -15,6 +15,7 @@
   "enableAllProjectMcpServers": true,
   "permissions": {
     "allow": [
+      "Bash(action-validator:*)",
       "Bash(actionlint:*)",
       "Bash(deadnix:*)",
       "Bash(editorconfig-checker:*)",
@@ -49,20 +50,12 @@
       "Bash(nix search:*)",
       "Bash(nix-fast-build:*)",
       "Bash(nixfmt:*)",
-      "Bash(npm ci:*)",
-      "Bash(npm exec --no:*)",
-      "Bash(npm run build:*)",
-      "Bash(npm run fix:*)",
-      "Bash(npm run lint:*)",
-      "Bash(npm run test:*)",
-      "Bash(npm test:*)",
       "Bash(prettier:*)",
       "Bash(shellcheck:*)",
       "Bash(shfmt:*)",
       "Bash(statix:*)",
       "Bash(typos:*)",
       "Bash(zizmor:*)"
-    ],
-    "deny": ["Bash(npx:*)", "Bash(pnpm:*)", "Bash(pnpx:*)", "Bash(yarn:*)"]
+    ]
   }
 }

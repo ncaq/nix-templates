@@ -11,10 +11,6 @@
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
       }
-    },
-    "nixos": {
-      "type": "http",
-      "url": "https://mcp-nixos.ncaq.net/mcp"
     }
   }
 }
