@@ -200,7 +200,6 @@
 
               # GitHub関連ツール。
               gh
-              github-mcp-server
             ];
           };
         };
