@@ -130,7 +130,6 @@
 
               # GitHub関連ツール。
               gh
-              github-mcp-server
 
               # Node.js
               nodejs
