@@ -1,7 +1,13 @@
 version: 2
 updates:
   - package-ecosystem: github-actions
-    directory: "/"
+    # Using explicit directories instead of glob ("/**") due to
+    # [globstar with github-actions ecosystem creates duplicate PRs](https://github.com/dependabot/dependabot-core/issues/10884).
+    directories:
+      - "/"
+      - "/templates/basic"
+      - "/templates/github-action"
+      - "/templates/typescript"
     open-pull-requests-limit: 20
     labels:
       - "Type: CI"
