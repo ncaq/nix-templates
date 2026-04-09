@@ -50,12 +50,14 @@
               };
             };
           };
+
           packages = {
             # flake.lockの管理バージョンをre-exportすることで安定した利用を促進。
             inherit (pkgs)
               nix-fast-build
               ;
           };
+
           devShells.default = pkgs.mkShell {
             buildInputs = with pkgs; [
               # treefmtで指定したプログラムの単体版。

@@ -110,6 +110,7 @@
               nix-fast-build
               ;
           };
+
           devShells.default = pkgs.mkShell {
             buildInputs = with pkgs; [
               # treefmtで指定したプログラムの単体版。

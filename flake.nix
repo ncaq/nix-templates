@@ -143,13 +143,7 @@
               };
             };
           };
-          packages = {
-            # flake.lockの管理バージョンをre-exportすることで安定した利用を促進。
-            inherit (pkgs)
-              nix-fast-build
-              ;
-            inherit sync-template-files sync-commit;
-          };
+
           checks = {
             template-sync = pkgs.runCommand "template-sync-check" { } ''
               ${pkgs.lib.concatMapStringsSep "\n" (
@@ -180,6 +174,15 @@
               touch $out
             '';
           };
+
+          packages = {
+            # flake.lockの管理バージョンをre-exportすることで安定した利用を促進。
+            inherit (pkgs)
+              nix-fast-build
+              ;
+            inherit sync-template-files sync-commit;
+          };
+
           devShells.default = pkgs.mkShell {
             buildInputs = with pkgs; [
               # treefmtで指定したプログラムの単体版。
