@@ -141,6 +141,14 @@
                 command = pkgs.editorconfig-checker;
                 includes = [ "*" ];
               };
+              zizmor = {
+                options = [ "--pedantic" ];
+                includes = [
+                  ".github/*.yml"
+                  "templates/*/.github/*.yml"
+                  "templates/*/action.yml"
+                ];
+              };
             };
           };
 
