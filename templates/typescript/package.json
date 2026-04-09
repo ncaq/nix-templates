@@ -16,7 +16,7 @@
     "test:watch": "vitest"
   },
   "devDependencies": {
-    "@eslint/compat": "^2.0.4",
+    "@eslint/compat": "^2.0.5",
     "@eslint/js": "^10.0.1",
     "@types/node": "^24.12.2",
     "eslint": "^10.2.0",
@@ -28,7 +28,7 @@
     "npm-run-all2": "^8.0.4",
     "prettier": "^3.8.1",
     "typescript": "^6.0.2",
-    "typescript-eslint": "^8.58.0",
+    "typescript-eslint": "^8.58.1",
     "vitest": "^4.1.2"
   },
   "engines": {
