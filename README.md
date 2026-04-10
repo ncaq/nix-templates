@@ -1,5 +1,12 @@
 # nix-templates
 
+> [!CAUTION]
+> このリポジトリのルートにあるファイル(`flake.nix`, `.github/workflows/`など)は、
+> テンプレートを管理するためのファイルです。
+> これ自体はテンプレートではないので、
+> コピーしたり参考にしてはいけません。
+> 実際のテンプレートは`templates/`ディレクトリ以下にあります。
+
 Nix flake templates.
 
 ## Templates
