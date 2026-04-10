@@ -12,6 +12,15 @@ treefmt, CI, devShellなどを含む基本的なNix flakeテンプレート。
 nix flake init -t 'github:ncaq/nix-templates#basic'
 ```
 
+### github-action
+
+GitHub Actionプロジェクト向けのテンプレート。
+basicの内容に加え、composite action, VERSIONベースのリリースワークフローを含みます。
+
+```zsh
+nix flake init -t 'github:ncaq/nix-templates#github-action'
+```
+
 ### typescript
 
 TypeScriptプロジェクト向けの基本テンプレート。
