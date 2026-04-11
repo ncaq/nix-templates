@@ -30,7 +30,7 @@ nix flake init -t 'github:ncaq/nix-templates#github-action'
 
 ### haskell-himari
 
-himariプリリュードを使用するHaskellプロジェクト向けテンプレート。
+himariプレリュードを使用するHaskellプロジェクト向けテンプレート。
 basicの内容に加え、cabal, fourmolu, hlint, Nix CIを含みます。
 
 ```zsh
