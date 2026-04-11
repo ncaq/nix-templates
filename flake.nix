@@ -34,6 +34,10 @@
             path = ./templates/github-action;
             description = "GitHub Action template with composite action, VERSION-based release, and Nix CI";
           };
+          haskell-himari = {
+            path = ./templates/haskell-himari;
+            description = "Haskell project template using himari prelude with cabal, fourmolu, hlint, and Nix CI";
+          };
           typescript = {
             path = ./templates/typescript;
             description = "TypeScript project template with npm, vitest, ESLint, and Prettier";
@@ -50,6 +54,7 @@
           templateDirs = [
             "basic"
             "github-action"
+            "haskell-himari"
             "typescript"
           ];
 
