@@ -69,6 +69,7 @@
             ".github/release.yml"
             ".github/workflows/kyosei.yml"
             ".marksman.toml"
+            "renovate.json"
             "_typos.toml"
             "statix.toml"
           ];
