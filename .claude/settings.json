@@ -123,7 +123,6 @@
       "Bash(npm run lint:eslint)",
       "Bash(npm run lint:prettier)",
       "Bash(npm run lint:tsc)",
-      "Bash(npm run npm:*)",
       "Bash(npm run prettier:*)",
       "Bash(npm run preview:*)",
       "Bash(npm run test:*)",
