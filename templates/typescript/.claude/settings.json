@@ -96,7 +96,6 @@
       "Bash(nix log:*)",
       "Bash(nix path-info:*)",
       "Bash(nix search:*)",
-      "Bash(nix shell:*)",
       "Bash(nix store:*)",
       "Bash(nix why-depends:*)",
       "Bash(nix-diff:*)",

@@ -97,7 +97,6 @@
       "Bash(nix path-info:*)",
       "Bash(nix run '.#sync-template-files':*)",
       "Bash(nix search:*)",
-      "Bash(nix shell:*)",
       "Bash(nix store:*)",
       "Bash(nix why-depends:*)",
       "Bash(nix-diff:*)",
