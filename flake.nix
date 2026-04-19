@@ -64,7 +64,6 @@
             ".editorconfig"
             ".envrc"
             ".mcp.json"
-            ".github/actions/setup-nix/action.yml"
             ".github/git-commit-instructions.md"
             ".github/release.yml"
             ".github/workflows/kyosei.yml"
