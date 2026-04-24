@@ -11,7 +11,7 @@
     "declarationMap": true,
     "sourceMap": true,
     "outDir": "dist",
-    "isolatedDeclarations": true,
+    "isolatedDeclarations": false,
     "erasableSyntaxOnly": true,
     "strict": true,
     "exactOptionalPropertyTypes": true,
