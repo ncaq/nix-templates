@@ -14,7 +14,7 @@
     // あたりから大抵は選択することになります。
     "module": "preserve",
     // import文のパス解決アルゴリズム。
-    // バンドラを想定した想定した寛容な解決を行う`bundler`、Node.js公式の解決を行う`node16`。
+    // バンドラを想定した寛容な解決を行う`bundler`、Node.js公式の解決を行う`node16`。
     // あたりから大抵は選択することになります。
     "moduleResolution": "bundler",
     // JSONファイルをimportできるようにします。
