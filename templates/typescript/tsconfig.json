@@ -1,3 +1,5 @@
+// -*- mode: jsonc -*-
+// vim: set filetype=jsonc:
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
