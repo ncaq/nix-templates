@@ -24,6 +24,7 @@
      * 厳格レベル。
      */
     "strict": true, // strict系の型チェックオプションを一括で有効化します。
+    // strictでは有効にならない厳格さを以下で制御します。
     "erasableSyntaxOnly": true, // 型を消すだけで動くTypeScript構文に限定し独自のランタイム構文を禁止します。
     "exactOptionalPropertyTypes": true, // optionalなプロパティで未定義と明示的な`undefined`を区別します。
     "forceConsistentCasingInFileNames": true, // import文とファイル実体の大文字小文字を一致させます。
