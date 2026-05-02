@@ -28,7 +28,7 @@
     "erasableSyntaxOnly": true, // 型を消すだけで動くTypeScript構文に限定し独自のランタイム構文を禁止します。
     "exactOptionalPropertyTypes": true, // optionalなプロパティで未定義と明示的な`undefined`を区別します。
     "forceConsistentCasingInFileNames": true, // import文とファイル実体の大文字小文字を一致させます。
-    "isolatedDeclarations": false, // 型注釈の明示なしで`.d.ts`を生成できるか検証する厳格モード。ライブラリ向け。
+    "isolatedDeclarations": false, // 単独で`.d.ts`を生成できるか検証。ライブラリ向けなのでアプリケーションでは`false`にします。
     "isolatedModules": true, // 各ファイルを単独でトランスパイル可能な形に制限します。曖昧なexportなどを許可しない。
     "noFallthroughCasesInSwitch": true, // `switch`文で`case`間のフォールスルーをエラーします。
     "noImplicitOverride": true, // 親クラスのメンバを上書きする際に`override`キーワードを必須にします。
