@@ -3,28 +3,51 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
+    // 指定したECMAScriptバージョンで動く基準。libが未指定ならデフォルトlibもこの値から導出されます。
     "target": "es2024",
+    // 出力するモジュール形式。バンドラに委ねる`preserve`、Node.jsの解決に委ねる`node20`、純粋ESMの`es2022`。
     "module": "preserve",
+    // import文のパス解決アルゴリズム。バンドラを想定した想定した寛容な解決を行う`bundler`、Node.js公式の解決を行う`node16`。
     "moduleResolution": "bundler",
+    // 副作用目的の`import "foo"`について実体ファイルの存在を検査します。
     "noUncheckedSideEffectImports": true,
+    // import/export構文を勝手に書き換えず、型のみのimportは`import type`の明示を必須にします。
     "verbatimModuleSyntax": true,
+    // 各ファイルを単独でトランスパイル可能な形に制限します。曖昧なexportなどを許可しない。
     "isolatedModules": true,
+    // 型定義ファイル(.d.ts)を生成します。
     "declaration": true,
+    // `.d.ts`からソースへのソースマップを生成します。
     "declarationMap": true,
+    // 出力JSに対するソースマップ(.js.map)を生成します。
     "sourceMap": true,
+    // コンパイル成果物の出力先ディレクトリ。
     "outDir": "dist",
+    // 型注釈の明示なしで`.d.ts`を生成できるか検証する厳格モード。ライブラリ向け。
     "isolatedDeclarations": false,
+    // 型を消すだけで動くTypeScript構文に限定します。`enum`/`namespace`等の実行時意味を持つ構文を禁止。
     "erasableSyntaxOnly": true,
+    // strict系の型チェックオプションを一括で有効化します。
     "strict": true,
+    // optionalなプロパティで未定義と明示的な`undefined`を区別します。
     "exactOptionalPropertyTypes": true,
+    // `switch`文で`case`間のフォールスルーをエラーします。
     "noFallthroughCasesInSwitch": true,
+    // 親クラスのメンバを上書きする際に`override`キーワードを必須にします。
     "noImplicitOverride": true,
+    // 関数の全分岐で値を返すかを検査します。
     "noImplicitReturns": true,
+    // index signature型のプロパティをドット記法で参照することを禁止します。ブラケット記法を強制。
     "noPropertyAccessFromIndexSignature": true,
+    // index signatureや配列の添字アクセス結果を`T | undefined`として扱います。
     "noUncheckedIndexedAccess": true,
+    // import文とファイル実体の大文字小文字を一致させます。大文字小文字を区別しないシステム対策。
     "forceConsistentCasingInFileNames": true,
+    // `node_modules`内の`.d.ts`の型チェックをスキップしてコンパイルを高速化します。
     "skipLibCheck": true,
+    // 自動的にincludeする`@types/*`の対象を限定します。列挙したものだけ取り込みます。
     "types": ["node"]
   },
+  // コンパイル対象から除外するパスのglobパターン。
   "exclude": ["node_modules", "dist", "result", "result-*"]
 }
