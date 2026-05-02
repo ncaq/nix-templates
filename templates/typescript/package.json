@@ -4,7 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc",
     "fix": "run-p fix:*",
     "fix:eslint": "eslint --fix .",
     "fix:prettier": "prettier --write .",
