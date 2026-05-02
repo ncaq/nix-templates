@@ -40,6 +40,9 @@
      * 出力設定。
      */
     "noEmit": true, // JSを出力せず、型チェックのみ行います。
+    // `noEmit`が`true`の場合は何も出力されないのでこれ以下の設定は意味をなしませんが、
+    // `noEmit`を`false`にした時に情報が出力されてほしいので、
+    // 設定を残しておきます。
     "declaration": true, // 型定義ファイル(.d.ts)を生成します。
     "declarationMap": true, // `.d.ts`からソースへのソースマップを生成します。
     "sourceMap": true, // 出力JSに対するソースマップ(.js.map)を生成します。
