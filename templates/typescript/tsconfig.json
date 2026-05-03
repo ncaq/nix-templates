@@ -17,15 +17,15 @@
     // バンドラを想定した寛容な解決を行う`bundler`、Node.js公式の解決を行う`node16`。
     // あたりから大抵は選択することになります。
     "moduleResolution": "bundler",
-    // JSONファイルをimportできるようにできます。
+    // JSONファイルをimportできるようになります。
     // インポートされたJSONは型安全なオブジェクトとして扱われます。
     "resolveJsonModule": true,
-    // `.js`ではなく`.ts`などでimportできるようにできます。
+    // `.js`ではなく`.ts`などでimportできるようになります。
     // トランスパイルせず、
     // tscは型チェックのみを行う場合は有効に出来ます。
     // `true`にするには`noEmit`などのオプションを調整する必要があります。
     "allowImportingTsExtensions": false,
-    // コンパイル時に`.ts`を書き換えることができます。
+    // コンパイル時に`.ts`を書き換えるようにできます。
     // 直接実行もトランスパイルも両立したい時に利用できます。
     "rewriteRelativeImportExtensions": false,
     /*
