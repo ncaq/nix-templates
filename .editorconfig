@@ -44,7 +44,7 @@ indent_size = unset
 
 # 変則的に2インデントや3インデントが混ざり合ったりして、
 # インデントが倍数になるとは限らない言語。
-[*.el]
+[*.{chs,el,hs,hsc,hsig,lhs,lhsi}]
 indent_size = unset
 
 [*.md]
