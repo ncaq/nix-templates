@@ -62,14 +62,15 @@
           syncFiles = [
             ".dir-locals.el"
             ".editorconfig"
+            ".editorconfig-checker.json"
             ".envrc"
-            ".mcp.json"
             ".github/git-commit-instructions.md"
             ".github/release.yml"
             ".github/workflows/kyosei.yml"
             ".marksman.toml"
-            "renovate.json"
+            ".mcp.json"
             "_typos.toml"
+            "renovate.json"
             "statix.toml"
           ];
 
