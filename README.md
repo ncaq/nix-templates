@@ -22,7 +22,8 @@ nix flake init -t 'github:ncaq/nix-templates#basic'
 ### github-action
 
 GitHub Actionプロジェクト向けのテンプレート。
-basicの内容に加え、composite action, VERSIONベースのリリースワークフローを含みます。
+
+composite actionのスケルトンなどを含みます。
 
 ```zsh
 nix flake init -t 'github:ncaq/nix-templates#github-action'
@@ -31,7 +32,8 @@ nix flake init -t 'github:ncaq/nix-templates#github-action'
 ### haskell-himari
 
 himariプレリュードを使用するHaskellプロジェクト向けテンプレート。
-basicの内容に加え、cabal, fourmolu, hlint, Nix CIを含みます。
+
+Haskellビルドインフラでの開発環境のセットアップが含まれます。
 
 ```zsh
 nix flake init -t 'github:ncaq/nix-templates#haskell-himari'
@@ -40,7 +42,8 @@ nix flake init -t 'github:ncaq/nix-templates#haskell-himari'
 ### typescript
 
 TypeScriptプロジェクト向けの基本テンプレート。
-basicの内容に加え、npm, vitest, ESLint, Prettierを含みます。
+
+npmベースの開発環境が含まれます。
 
 ```zsh
 nix flake init -t 'github:ncaq/nix-templates#typescript'
