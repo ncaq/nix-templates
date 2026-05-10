@@ -60,14 +60,6 @@ indent_size = unset
 # コンフリクトする設定は除外します。
 trim_trailing_whitespace = false
 
-[*.{json,md,nix,yml,yaml}]
-# 設定やドキュメントのファイルはURLなど改行困難なものが多いため行幅制限を無効化します。
-max_line_length = unset
-
-[.env{,.*}]
-# 接続文字列やAPIキーなど長い設定値を含むため行幅制限を無効化します。
-max_line_length = unset
-
 [*.bat]
 # Windows向けbatファイルではUnicodeは使えないのでlatin1を指定します。
 # 本当はasciiを指定したいのですが設定キーが存在しません。

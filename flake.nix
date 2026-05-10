@@ -62,6 +62,7 @@
           syncFiles = [
             ".dir-locals.el"
             ".editorconfig"
+            ".editorconfig-checker.json"
             ".envrc"
             ".github/git-commit-instructions.md"
             ".github/release.yml"
