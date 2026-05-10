@@ -32,15 +32,15 @@
           };
           github-action = {
             path = ./templates/github-action;
-            description = "GitHub Action template with composite action, VERSION-based release, and Nix CI";
+            description = "GitHub Action template with composite action";
           };
           haskell-himari = {
             path = ./templates/haskell-himari;
-            description = "Haskell project template using himari prelude with cabal, fourmolu, hlint, and Nix CI";
+            description = "Haskell project template using himari prelude";
           };
           typescript = {
             path = ./templates/typescript;
-            description = "TypeScript project template with npm, vitest, ESLint, and Prettier";
+            description = "TypeScript project template using npm";
           };
         };
       };
