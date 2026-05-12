@@ -1,3 +1,5 @@
+日本語で記述してください。
+
 Conventional Commitsを使います。
 
 # Conventional Commits 1.0.0
@@ -43,16 +45,16 @@ Conventional Commitsの仕様はコミットメッセージのための軽量の
 
 #### `BREAKING CHANGE`
 
-_フッター_に`BREAKING CHANGE:`が書かれているか、
+*フッター*に`BREAKING CHANGE:`が書かれているか、
 型/スコープの直後に`!`が追加されているコミットはAPIの破壊的変更を導入します。
 
 Semantic Versioningにおける[`MAJOR`](http://semver.org/#summary)に相当します。
 
-`BREAKING CHANGE`は任意の_型_のコミットに含めることができます。
+`BREAKING CHANGE`は任意の*型*のコミットに含めることができます。
 
-#### `fix`や`feat`以外の_型_
+#### `fix`や`feat`以外の*型*
 
-それ以外の_型_も許されています。
+それ以外の*型*も許されています。
 
 たとえば、
 [Angularの規約](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines)
@@ -75,7 +77,7 @@ Semantic Versioningにおける[`MAJOR`](http://semver.org/#summary)に相当し
 を推奨しています。
 
 [git trailer format](https://git-scm.com/docs/git-interpret-trailers)に似た規約に従って、
-`BREAKING CHANGE: <タイトル>`以外の_フッター_が与えられるかもしれません。
+`BREAKING CHANGE: <タイトル>`以外の*フッター*が与えられるかもしれません。
 
 追加の型たちはConventional Commitsの仕様で義務付けられているものではなく、
 BREAKING CHANGE を含まない限り、
@@ -83,7 +85,7 @@ Semantic Versioning に対する暗黙的な効果を持ちません。
 
 ### _スコープ_
 
-コミットの型には追加の文脈の情報として_スコープ_を追加することができます。
+コミットの型には追加の文脈の情報として*スコープ*を追加することができます。
 スコープは括弧で囲みます。
 たとえば`feat(parser): add ability to parse arrays`のようになります。
 
@@ -177,7 +179,7 @@ Reviewed-by: Z
   コードベースのセクションを記述する括弧で囲まれた名詞にしなければならない(MUST)。
   例: `fix(parser):`。
 - 型/スコープの後ろのコロンとスペースの直後にタイトルが続かなければならない(MUST)。
-  タイトルはコード変更の短かい要約である。
+  タイトルはコード変更の短い要約である。
   例: `fix: array parsing issue when multiple spaces were contained in string`。
 - 短いタイトルの後ろにより長いコミットの本文を追加してもよい(MAY)。
   これはコード変更に関する追加の情報を提供する。
@@ -212,10 +214,10 @@ Reviewed-by: Z
   フッターから `BREAKING CHANGE:`を省略してもよい(MAY)。
   その場合はコミットのタイトル部分で破壊的変更の内容を説明することになる(SHALL)。
 - `feat`と`fix`以外の型を使うことができる(MAY)。
-  例: `docs: updated ref docs.`。
+  例: `docs: update ref docs.`。
 - Conventional Commitsを構成する情報の単位は、
-  大文字の`BREAKING CHANGE`を除いて、
-  実装は大文字と小文字を区別してはならない(MUST NOT)。
+  大文字のBREAKING CHANGEを除き、
+  実装において大文字と小文字を区別してはならない(MUST NOT)。
 - フッターのトークンにおいて`BREAKING-CHANGE`は`BREAKING CHANGE`と、
   同じトークンとして解釈されなければならない(MUST)。
 
@@ -241,7 +243,7 @@ ref 486f89c6d7b33bcff263f6131f8ecb4ec18fd376
 ref 96c64808f64c353ecaf060da98712272cfce30b8
 ```
 
-# 使用する_型_の説明
+# 使用する*型*の説明
 
 コミットメッセージの先頭には、
 変更の種類を示す型を書きます。
