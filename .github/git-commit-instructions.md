@@ -212,7 +212,7 @@ Reviewed-by: Z
   フッターから `BREAKING CHANGE:`を省略してもよい(MAY)。
   その場合はコミットのタイトル部分で破壊的変更の内容を説明することになる(SHALL)。
 - `feat`と`fix`以外の型を使うことができる(MAY)。
-  例: `docs: updated ref docs.`。
+  例: `docs: update ref docs.`。
 - Conventional Commitsを構成する情報の単位は、
   大文字の`BREAKING CHANGE`を除いて、
   実装は大文字と小文字を区別してはならない(MUST NOT)。
