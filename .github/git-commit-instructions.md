@@ -216,8 +216,8 @@ Reviewed-by: Z
 - `feat`と`fix`以外の型を使うことができる(MAY)。
   例: `docs: update ref docs.`。
 - Conventional Commitsを構成する情報の単位は、
-  大文字の`BREAKING CHANGE`を除いて、
-  実装は大文字と小文字を区別してはならない(MUST NOT)。
+  大文字のBREAKING CHANGEを除き、
+  実装において大文字と小文字を区別してはならない(MUST NOT)。
 - フッターのトークンにおいて`BREAKING-CHANGE`は`BREAKING CHANGE`と、
   同じトークンとして解釈されなければならない(MUST)。
 
