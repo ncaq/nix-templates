@@ -1,3 +1,5 @@
+日本語で記述してください。
+
 Conventional Commitsを使います。
 
 # Conventional Commits 1.0.0
