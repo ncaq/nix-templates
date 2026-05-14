@@ -26,7 +26,7 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
   {
     rules: {
       // 名前別だけではなくカテゴリ別にもソートします。
-      "import-x/order": ["warn", { alphabetize: { order: "asc", orderImportKind: "asc" } }],
+      "import-x/order": ["error", { alphabetize: { order: "asc", orderImportKind: "asc" } }],
     },
     settings: {
       // TypeScriptのimportを柔軟に解決できるようにします。
