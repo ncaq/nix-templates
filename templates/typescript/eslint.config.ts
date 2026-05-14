@@ -71,8 +71,6 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
         "error",
         {
           allowExpressions: true, // インラインな関数式にはいちいち要求しません。
-          allowConciseArrowFunctionExpressionsStartingWithVoid: true, // voidを返すことが明白な場合は要求しません。
-          allowIIFEs: true, // 即時実行関数の型を持ってもあまり意味がないので要求しません。
         },
       ],
     },
