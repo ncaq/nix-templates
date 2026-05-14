@@ -120,5 +120,5 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
   },
 );
 // ESLintの設定をエクスポート。
-// 型定義とdefault exportが両立できないため分けています。
+// 型アノテーションとdefault exportが両立できないため分けています。
 export default config;
