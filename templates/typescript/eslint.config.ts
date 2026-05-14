@@ -97,7 +97,8 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
     plugins: { n: node },
     extends: ["n/recommended-module"],
     rules: {
-      // 複雑な設定下でのimportを解決できないため無効化します。eslint-plugin-import-xがあるため問題になりません。
+      // 複雑な設定下でのimportを解決できないため無効化します。
+      // eslint-plugin-import-xに任せます。
       "n/no-missing-import": "off",
       // Node.jsビルトインのモジュールをimportする時にprefixを強制して依存をわかりやすくします。
       "n/prefer-node-protocol": "error",
