@@ -87,7 +87,6 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
         projectService: {
           allowDefaultProject: ["*.js", "*.jsx", "*.cjs", "*.mjs"],
         },
-        project: ["tsconfig.json"],
         tsconfigRootDir: __dirname,
       },
     },
