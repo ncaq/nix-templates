@@ -84,9 +84,7 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
     files: ["**/*.{js,jsx,cjs,mjs}"],
     languageOptions: {
       parserOptions: {
-        projectService: {
-          allowDefaultProject: ["*.js", "*.jsx", "*.cjs", "*.mjs"],
-        },
+        projectService: true,
         tsconfigRootDir: __dirname,
       },
     },
