@@ -128,7 +128,7 @@ docs: correct spelling of CHANGELOG
 ### スコープを持つコミットメッセージ
 
 ```markdown
-feat(lang): add polish language
+feat(lang): add Polish language
 ```
 
 ### 複数段落からなる本文と複数のフッターを持ったコミットメッセージ
