@@ -126,6 +126,9 @@
               actionlint
               deadnix
               editorconfig-checker
+              fourmolu
+              haskellPackages.cabal-gild
+              hlint
               nixfmt
               prettier
               shellcheck
@@ -143,10 +146,7 @@
 
               # Haskell関連ツール。
               cabal-install
-              fourmolu
               haskell-language-server
-              haskellPackages.cabal-gild
-              hlint
             ];
           };
         };
