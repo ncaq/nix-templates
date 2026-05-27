@@ -37,6 +37,11 @@
         let
           haskellPackages = pkgs.haskellPackages.override {
             overrides = hself: _hsuper: {
+              # himariはnixpkgsでbroken指定を受けています。
+              # brokenの理由はテストのインフラとnixpkgsの相性の問題なので、
+              # 利用すること自体には問題はありません。
+              # 問題をhimari側で解決して、
+              # brokenが解除されたらこのoverrideは削除する予定です。
               himari = pkgs.haskell.lib.compose.doJailbreak (
                 pkgs.haskell.lib.dontCheck (hself.callCabal2nix "himari" inputs.himari-src { })
               );
