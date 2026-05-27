@@ -35,18 +35,27 @@
           ...
         }:
         let
-          haskellPackages = pkgs.haskellPackages.override {
-            overrides = hself: _hsuper: {
-              # himariはnixpkgsでbroken指定を受けています。
-              # brokenの理由はテストのインフラとnixpkgsの相性の問題なので、
-              # 利用すること自体には問題はありません。
-              # 問題をhimari側で解決して、
-              # brokenが解除されたらこのoverrideは削除する予定です。
-              himari = pkgs.haskell.lib.compose.doJailbreak (
-                pkgs.haskell.lib.dontCheck (hself.callCabal2nix "himari" inputs.himari-src { })
-              );
-            };
-          };
+          # `cabal.project`の`with-compiler`で指定したGHCバージョンを尊重し、
+          # 対応するnixpkgsのパッケージセットを選択します。
+          # こうすることでGHCバージョンの管理が`cabal.project`に一元化されます。
+          cabalHaskellGhcVersion = builtins.head (
+            builtins.match ".*with-compiler:[[:space:]]*ghc-([0-9.]+).*" (builtins.readFile ./cabal.project)
+          );
+          # このプロジェクトで使うHaskellのパッケージセット。
+          haskellPackages =
+            pkgs.haskell.packages."ghc${builtins.replaceStrings [ "." ] [ "" ] cabalHaskellGhcVersion}".override
+              {
+                overrides = hself: _hsuper: {
+                  # himariはnixpkgsでbroken指定を受けています。
+                  # brokenの理由はテストのインフラとnixpkgsの相性の問題なので、
+                  # 利用すること自体には問題はありません。
+                  # 問題をhimari側で解決して、
+                  # brokenが解除されたらこのoverrideは削除する予定です。
+                  himari = pkgs.haskell.lib.compose.doJailbreak (
+                    pkgs.haskell.lib.dontCheck (hself.callCabal2nix "himari" inputs.himari-src { })
+                  );
+                };
+              };
           haskellProject = haskellPackages.callCabal2nix "haskell-project" ./. { };
         in
         {
@@ -146,7 +155,7 @@
 
               # Haskell関連ツール。
               cabal-install
-              haskell-language-server
+              haskellPackages.haskell-language-server
             ];
           };
         };
