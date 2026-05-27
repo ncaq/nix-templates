@@ -7,7 +7,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     himari-src = {
-      url = "github:ncaq/himari/v1.0.5.0";
+      url = "github:ncaq/himari/v1.1.2.1";
       flake = false;
     };
   };
@@ -35,13 +35,27 @@
           ...
         }:
         let
-          haskellPackages = pkgs.haskellPackages.override {
-            overrides = hself: _hsuper: {
-              himari = pkgs.haskell.lib.compose.doJailbreak (
-                pkgs.haskell.lib.dontCheck (hself.callCabal2nix "himari" inputs.himari-src { })
-              );
-            };
-          };
+          # `cabal.project`の`with-compiler`で指定したGHCバージョンを尊重し、
+          # 対応するnixpkgsのパッケージセットを選択します。
+          # こうすることでGHCバージョンの管理が`cabal.project`に一元化されます。
+          cabalHaskellGhcVersion = builtins.head (
+            builtins.match ".*with-compiler:[[:space:]]*ghc-([0-9.]+).*" (builtins.readFile ./cabal.project)
+          );
+          # このプロジェクトで使うHaskellのパッケージセット。
+          haskellPackages =
+            pkgs.haskell.packages."ghc${builtins.replaceStrings [ "." ] [ "" ] cabalHaskellGhcVersion}".override
+              {
+                overrides = hself: _hsuper: {
+                  # himariはnixpkgsでbroken指定を受けています。
+                  # brokenの理由はテストのインフラとnixpkgsの相性の問題なので、
+                  # 利用すること自体には問題はありません。
+                  # 問題をhimari側で解決して、
+                  # brokenが解除されたらこのoverrideは削除する予定です。
+                  himari = pkgs.haskell.lib.compose.doJailbreak (
+                    pkgs.haskell.lib.dontCheck (hself.callCabal2nix "himari" inputs.himari-src { })
+                  );
+                };
+              };
           haskellProject = haskellPackages.callCabal2nix "haskell-project" ./. { };
         in
         {
@@ -63,9 +77,10 @@
             settings.formatter = {
               # cabal-gildのモジュール自動発見機能に対応するため、
               # Haskellソースファイルの変更も検知してcabal-gildを実行します。
-              # treefmt-nixの上流では変更されたファイルだけを修正したいと言われてマージされていませんが、
+              # treefmt-nixの上流では、
+              # 変更されたファイルだけを修正したいと言われてマージされていませんが、
               # ローカルで使う分には問題ありません。
-              # [fix(cabal): cabal-fmt and cabal-gild discover module by ncaq · Pull Request #384 · numtide/treefmt-nix](https://github.com/numtide/treefmt-nix/pull/384)
+              # [cabal-gild discover module](https://github.com/numtide/treefmt-nix/pull/384)
               cabal-gild = {
                 command = lib.getExe (
                   pkgs.writeShellApplication {
@@ -120,6 +135,9 @@
               actionlint
               deadnix
               editorconfig-checker
+              fourmolu
+              haskellPackages.cabal-gild
+              hlint
               nixfmt
               prettier
               shellcheck
@@ -137,10 +155,7 @@
 
               # Haskell関連ツール。
               cabal-install
-              fourmolu
-              haskell-language-server
-              haskellPackages.cabal-gild
-              hlint
+              haskellPackages.haskell-language-server
             ];
           };
         };
