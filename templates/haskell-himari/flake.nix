@@ -7,7 +7,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     himari-src = {
-      url = "github:ncaq/himari/v1.0.5.0";
+      url = "github:ncaq/himari/v1.1.2.1";
       flake = false;
     };
   };
