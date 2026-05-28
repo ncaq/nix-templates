@@ -33,13 +33,16 @@
         let
           inherit (pkgs) nodejs;
 
+          npmFileset = lib.fileset.unions [
+            ./package.json
+            ./package-lock.json
+          ];
+
           npmRoot = lib.fileset.toSource {
             root = ./.;
-            fileset = lib.fileset.unions [
-              ./package.json
-              ./package-lock.json
-            ];
+            fileset = npmFileset;
           };
+
           nodeModules = pkgs.importNpmLock.buildNodeModules {
             inherit
               nodejs
@@ -47,18 +50,22 @@
               ;
           };
 
-          tsSrc = lib.fileset.toSource {
+          tsFileset = lib.fileset.unions [
+            npmFileset
+
+            ./src
+            ./test
+
+            ./.editorconfig
+            ./.gitignore
+            ./eslint.config.ts
+            ./tsconfig.json
+            ./vite.config.ts
+          ];
+
+          tsRoot = lib.fileset.toSource {
             root = ./.;
-            fileset = lib.fileset.unions [
-              ./src
-              ./test
-              ./.editorconfig
-              ./.gitignore
-              ./eslint.config.ts
-              ./package.json
-              ./tsconfig.json
-              ./vitest.config.ts
-            ];
+            fileset = tsFileset;
           };
 
           # npm run経由でスクリプト実行を簡単にするためのヘルパー。
@@ -69,7 +76,7 @@
                 nativeBuildInputs = [ nodejs ];
               }
               ''
-                cp -r ${tsSrc}/. .
+                cp -r ${tsRoot}/. .
                 ln -s ${nodeModules}/node_modules node_modules
                 npm run ${script}
                 touch $out
