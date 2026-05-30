@@ -7,7 +7,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     himari-src = {
-      url = "github:ncaq/himari/v1.1.2.1";
+      url = "github:ncaq/himari/v1.1.2.2";
       flake = false;
     };
   };
@@ -55,9 +55,7 @@
                   # 利用すること自体には問題はありません。
                   # 問題をhimari側で解決して、
                   # brokenが解除されたらこのoverrideは削除する予定です。
-                  himari = pkgs.haskell.lib.compose.doJailbreak (
-                    pkgs.haskell.lib.dontCheck (hself.callCabal2nix "himari" inputs.himari-src { })
-                  );
+                  himari = pkgs.haskell.lib.compose.doJailbreak (hself.callCabal2nix "himari" inputs.himari-src { });
                 };
               };
           haskellProject = haskellPackages.callCabal2nix "haskell-project" ./. { };
