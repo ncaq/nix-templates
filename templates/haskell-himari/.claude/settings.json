@@ -35,7 +35,6 @@
       "Bash(cabal run:*)",
       "Bash(cabal test:*)",
       "Bash(cabal update:*)",
-      "Bash(cabal-fmt:*)",
       "Bash(cabal-gild:*)",
       "Bash(cat:*)",
       "Bash(chmod:*)",
