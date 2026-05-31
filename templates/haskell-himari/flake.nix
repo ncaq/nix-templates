@@ -7,7 +7,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     himari-src = {
-      url = "github:ncaq/himari/v1.1.2.2";
+      url = "github:ncaq/himari/v1.1.3.0";
       flake = false;
     };
   };
@@ -50,12 +50,9 @@
             pkgs.haskell.packages."ghc${builtins.replaceStrings [ "." ] [ "" ] cabalHaskellGhcVersion}".override
               {
                 overrides = hself: _hsuper: {
-                  # himariはnixpkgsでbroken指定を受けています。
-                  # brokenの理由はテストのインフラとnixpkgsの相性の問題なので、
-                  # 利用すること自体には問題はありません。
-                  # 問題をhimari側で解決して、
-                  # brokenが解除されたらこのoverrideは削除する予定です。
-                  himari = pkgs.haskell.lib.compose.doJailbreak (hself.callCabal2nix "himari" inputs.himari-src { });
+                  # himariはまだstableなnixpkgsに入っていないため、
+                  # オーバーライドで追加します。
+                  himari = hself.callCabal2nix "himari" inputs.himari-src { };
                 };
               };
           haskellProject = haskellPackages.callCabal2nix "haskell-project" ./. { };
