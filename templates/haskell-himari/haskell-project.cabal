@@ -63,7 +63,7 @@ library
 
   build-depends:
     base >=4.20.0.0 && <4.23,
-    himari ^>=1.1.2.2,
+    himari >=1.1.2.2 && <1.2,
 
 executable haskell-project
   import: basic
@@ -96,4 +96,4 @@ test-suite haskell-project-test
     base,
     haskell-project,
     himari,
-    sandwich ^>=0.3.0.5,
+    sandwich >=0.3.0.5 && <0.4,
