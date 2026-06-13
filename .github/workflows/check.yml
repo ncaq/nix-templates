@@ -19,7 +19,7 @@ jobs:
     permissions:
       contents: read # リポジトリコンテンツの読み取り
       id-token: write # niks3 OIDC認証
-    timeout-minutes: 120
+    timeout-minutes: 240
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
@@ -28,18 +28,36 @@ jobs:
         with:
           cachix-auth-token: "${{ secrets.CACHIX_AUTH_TOKEN }}"
       - run: nix run '.#nix-fast-build' -- --option eval-cache false --no-link --skip-cached --no-nom
-        # nix-fast-buildはflake.lockをignoreしている状態では働かないため、nix flake checkを使います。
-        # templateではflake.lockをコミットしていません。
-        # templateはnix flake initで使われるため、
-        # ユーザの環境で新しいflake.lockが生成される方が望ましく、
-        # 作成者の環境のスナップショットであるflake.lockを配布する意味がないためです。
-        # そのため、ここでのチェックは再現性よりも、
-        # templateが最新のnixpkgsで壊れていないかの検証を目的としています。
+
+  # `nix-fast-build`は`flake.lock`をignoreしている状態では働かないため、
+  # `nix flake check`を使います。
+  # templateでは`flake.lock`をコミットしていません。
+  # templateは`nix flake init`で使われるため、
+  # ユーザの環境で新しい`flake.lock`が生成される方が望ましく、
+  # 作成者の環境のスナップショットである`flake.lock`を配布する意味がないためです。
+  # そのため、ここでのチェックは再現性よりも、
+  # templateが最新のnixpkgsで壊れていないかの検証を目的としています。
+  nix-flake-check:
+    name: nix-flake-check
+    strategy:
+      fail-fast: false
+      matrix:
+        template:
+          - basic
+          - github-action
+          - haskell-himari
+          - typescript
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read # リポジトリコンテンツの読み取り
+      id-token: write # niks3 OIDC認証
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          persist-credentials: false
+      - uses: ncaq/nix-composite-action@5a61f70ad5b7d2f276732e14355b7fb2ddd4caaf # v1.3.0
+        with:
+          cachix-auth-token: "${{ secrets.CACHIX_AUTH_TOKEN }}"
       - run: nix flake check
-        working-directory: ./templates/basic
-      - run: nix flake check
-        working-directory: ./templates/github-action
-      - run: nix flake check
-        working-directory: ./templates/haskell-himari
-      - run: nix flake check
-        working-directory: ./templates/typescript
+        working-directory: ./templates/${{ matrix.template }}
