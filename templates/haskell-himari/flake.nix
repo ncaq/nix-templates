@@ -6,10 +6,6 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    himari-src = {
-      url = "github:ncaq/himari/v1.1.3.0";
-      flake = false;
-    };
   };
 
   outputs =
@@ -64,9 +60,9 @@
                   in
                   lib.mapAttrs (_: pkgs.haskell.lib.compose.disableLibraryProfiling) hlsFamily
                   // {
-                    # himariはまだstableなnixpkgsに入っていないため、
-                    # オーバーライドで追加します。
-                    himari = hself.callCabal2nix "himari" inputs.himari-src { };
+                    # himariはnixpkgsに入りましたがまだbroken扱いを受けているため、
+                    # markUnbrokenでbrokenフラグを外して利用します。
+                    himari = pkgs.haskell.lib.compose.markUnbroken hsuper.himari;
                   };
               };
           haskellProject = haskellPackages.callCabal2nix "haskell-project" ./. { };
