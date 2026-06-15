@@ -31,12 +31,30 @@ nix flake init -t 'github:ncaq/nix-templates#github-action'
 
 ### haskell-himari
 
-himariプレリュードを使用するHaskellプロジェクト向けテンプレート。
+Haskellプロジェクト向けテンプレート。
+
+[himari](https://hackage.haskell.org/package/himari)プレリュードを使用します。
 
 Haskellビルドインフラでの開発環境のセットアップが含まれます。
 
 ```zsh
 nix flake init -t 'github:ncaq/nix-templates#haskell-himari'
+```
+
+### haskell-nix-himari
+
+Haskellプロジェクト向けテンプレート。
+
+[himari](https://hackage.haskell.org/package/himari)プレリュードを使用します。
+
+環境構築に[haskell.nix](https://github.com/input-output-hk/haskell.nix)を使用します。
+
+haskell-himariはnixpkgsのHaskellパッケージセットを使うのに対し、
+こちらはhaskell.nixを使うため重量級ですが、
+Cabalソルバーによる柔軟な依存解決などの恩恵を受けられます。
+
+```zsh
+nix flake init -t 'github:ncaq/nix-templates#haskell-nix-himari'
 ```
 
 ### typescript

@@ -38,6 +38,10 @@
             path = ./templates/haskell-himari;
             description = "Haskell project template using himari prelude";
           };
+          haskell-nix-himari = {
+            path = ./templates/haskell-nix-himari;
+            description = "Haskell project template using himari prelude and haskell.nix";
+          };
           typescript = {
             path = ./templates/typescript;
             description = "TypeScript project template using npm";
@@ -55,6 +59,7 @@
             "basic"
             "github-action"
             "haskell-himari"
+            "haskell-nix-himari"
             "typescript"
           ];
 
