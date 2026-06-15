@@ -72,6 +72,7 @@
             ".github/git-commit-instructions.md"
             ".github/release.yml"
             ".github/workflows/kyosei.yml"
+            ".github/zizmor.yml"
             ".marksman.toml"
             "_typos.toml"
             "renovate.json"
