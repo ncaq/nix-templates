@@ -88,6 +88,7 @@ test-suite haskell-project-test
     -threaded
     -rtsopts
     -with-rtsopts=-N
+
   -- cabal-gild: discover ./test --exclude ./test/Main.hs
   other-modules:
     Spec
