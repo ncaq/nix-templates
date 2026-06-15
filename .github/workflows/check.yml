@@ -46,6 +46,7 @@ jobs:
           - basic
           - github-action
           - haskell-himari
+          - haskell-nix-himari
           - typescript
     runs-on: ubuntu-24.04
     permissions:
