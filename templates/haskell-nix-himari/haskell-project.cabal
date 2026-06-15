@@ -63,7 +63,7 @@ library
 
   build-depends:
     base >=4.20.0.0 && <4.23,
-    himari >=1.1.2.2 && <1.2,
+    himari >=1.1.0.0 && <1.2,
 
 executable haskell-project
   import: basic
