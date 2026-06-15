@@ -29,8 +29,11 @@
         in
         if m == null then throw "cabal.projectにwith-compilerが見つかりません" else builtins.head m;
       ghc-version = "ghc${builtins.replaceStrings [ "." ] [ "" ] cabalHaskellGhcVersion}";
+      # toolのバージョン。
+      cabal-gild-version = "1.6.0.4";
       cabal-version = "3.16.1.0";
       hls-version = "2.13.0.0";
+      implicit-hie-version = "0.1.4.0";
       # cabalビルドに必要なファイルのみを含める。
       # 関係ないファイル(.editorconfig, .githubなど)の変更で内部derivationのhashが動き、
       # キャッシュミスが発生するのを避ける。
@@ -103,9 +106,9 @@
             shell = {
               tools = {
                 cabal = cabal-version;
-                cabal-gild = "1.6.0.4"; # treefmtで管理されているが広く使えるように。
+                cabal-gild = cabal-gild-version; # treefmtで管理されているが広く使えるように。
                 haskell-language-server = hls-version;
-                implicit-hie = "0.1.4.0";
+                implicit-hie = implicit-hie-version;
               };
               # ランタイム依存。
               buildInputs = with prev; [
@@ -200,7 +203,7 @@
                   pkgs.writeShellApplication {
                     name = "cabal-gild-wrapper";
                     runtimeInputs = [
-                      (pkgs.haskell-nix.tool ghc-version "cabal-gild" "1.6.0.4")
+                      (pkgs.haskell-nix.tool ghc-version "cabal-gild" cabal-gild-version)
                       pkgs.git
                       pkgs.parallel
                     ];
