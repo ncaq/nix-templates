@@ -223,18 +223,6 @@
                   "*.lhsig"
                 ];
               };
-              cabal-check = {
-                command = pkgs.lib.getExe (
-                  pkgs.writeShellApplication {
-                    name = "cabal-check-wrapper";
-                    runtimeInputs = [ (pkgs.haskell-nix.tool ghc-version "cabal" cabal-version) ];
-                    text = ''
-                      cabal check
-                    '';
-                  }
-                );
-                includes = [ "*.cabal" ];
-              };
               editorconfig-checker = {
                 command = pkgs.editorconfig-checker;
                 includes = [ "*" ];
