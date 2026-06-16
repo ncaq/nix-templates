@@ -49,7 +49,13 @@
           haskellPackages =
             pkgs.haskell.packages."ghc${builtins.replaceStrings [ "." ] [ "" ] cabalHaskellGhcVersion}".override
               {
-                overrides = hself: _hsuper: {
+                overrides = hself: hsuper: {
+                  # library profilingを無効化します。
+                  # GHC 9.12.4にはprofiling有効時にghcideのコンパイルでpanicするバグがあります。
+                  # 開発ツールではprofilingは通常不要なので無効化してこのバグを回避します。
+                  # プロファイリングが必要な時は、
+                  # 自分でプロダクションコードだけをビルドすることで回避可能です。
+                  mkDerivation = args: hsuper.mkDerivation (args // { enableLibraryProfiling = false; });
                   # himariはまだstableなnixpkgsに入っていないため、
                   # オーバーライドで追加します。
                   himari = hself.callCabal2nix "himari" inputs.himari-src { };
