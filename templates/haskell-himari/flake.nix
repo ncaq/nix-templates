@@ -49,17 +49,26 @@
           haskellPackages =
             pkgs.haskell.packages."ghc${builtins.replaceStrings [ "." ] [ "" ] cabalHaskellGhcVersion}".override
               {
-                overrides = hself: hsuper: {
-                  # library profilingを無効化します。
+                overrides =
+                  hself: hsuper:
                   # GHC 9.12.4にはprofiling有効時にghcideのコンパイルでpanicするバグがあります。
-                  # 開発ツールではprofilingは通常不要なので無効化してこのバグを回避します。
-                  # プロファイリングが必要な時は、
-                  # 自分でプロダクションコードだけをビルドすることで回避可能です。
-                  mkDerivation = args: hsuper.mkDerivation (args // { enableLibraryProfiling = false; });
-                  # himariはまだstableなnixpkgsに入っていないため、
-                  # オーバーライドで追加します。
-                  himari = hself.callCabal2nix "himari" inputs.himari-src { };
-                };
+                  # `Development.IDE.Core.Shake`のコンパイルで`GHC.Core.Subst`がpanicします。
+                  # ghcideではprofilingは通常不要なので無効化してこのバグを回避します。
+                  # パッケージセット全体(`mkDerivation`の上書き)に適用すると、
+                  # cache.nixos.orgのバイナリキャッシュ(profiling有効)が一切ヒットしなくなります。
+                  # そのためpanicが起きるghcideと、
+                  # それに依存してprofilingのミスマッチを起こすhlsファミリだけに絞って無効化します。
+                  let
+                    hlsFamily = lib.filterAttrs (
+                      name: _: name == "ghcide" || name == "haskell-language-server" || lib.hasPrefix "hls-" name
+                    ) hsuper;
+                  in
+                  lib.mapAttrs (_: pkgs.haskell.lib.compose.disableLibraryProfiling) hlsFamily
+                  // {
+                    # himariはまだstableなnixpkgsに入っていないため、
+                    # オーバーライドで追加します。
+                    himari = hself.callCabal2nix "himari" inputs.himari-src { };
+                  };
               };
           haskellProject = haskellPackages.callCabal2nix "haskell-project" ./. { };
         in
