@@ -21,7 +21,7 @@ jobs:
       cancel-in-progress: false
     if: github.event.workflow_run.conclusion == 'success'
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
           ref: "${{ github.event.workflow_run.head_sha }}"
           persist-credentials: false
@@ -65,7 +65,7 @@ jobs:
           else
             echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
-      - uses: ncaq/nix-composite-action@5a61f70ad5b7d2f276732e14355b7fb2ddd4caaf # v1.3.0
+      - uses: ncaq/nix-composite-action@76930b11f37310bc68c66492a09045c4f0432226 # v1.3.1
         if: steps.check_tag.outputs.skip != 'true'
         with:
           cachix-auth-token: "${{ secrets.CACHIX_AUTH_TOKEN }}"

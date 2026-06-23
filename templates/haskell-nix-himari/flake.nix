@@ -128,6 +128,7 @@
 
                 # nixの関連ツール。
                 nil
+                nix-fast-build
 
                 # GitHub関連ツール。
                 gh
@@ -152,7 +153,6 @@
       ];
 
       systems = [
-        "aarch64-linux"
         "x86_64-linux"
       ];
 
@@ -241,6 +241,10 @@
 
           packages = flake.packages // {
             default = flake.packages."haskell-project:exe:haskell-project";
+            # flake.lockの管理バージョンをre-exportすることで安定した利用を促進。
+            inherit (pkgs)
+              nix-fast-build
+              ;
           };
 
           apps = flake.apps // {

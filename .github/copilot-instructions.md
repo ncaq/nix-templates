@@ -44,11 +44,13 @@ nix-fast-build --option eval-cache false --no-link --skip-cached --no-nom
 
 ### `templates/`以下のテンプレートディレクトリ
 
-テンプレートディレクトリではテンプレートを利用する時に最新の`flake.lock`が使われるようにするために、
-あえて`flake.lock`をリポジトリでトラッキングしていません。
-よって`nix-fast-build`コマンドが動きません。
+テンプレートディレクトリでも`flake.lock`をコミットしているので、
+`nix-fast-build`が利用できます。
+`flake.lock`はrenovateで定期更新します。
 
-なのでテンプレートディレクトリでは`nix flake check`を使ってください。
+```console
+nix-fast-build --option eval-cache false --no-link --skip-cached --no-nom
+```
 
 # リポジトリ構成
 
