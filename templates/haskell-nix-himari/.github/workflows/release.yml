@@ -65,10 +65,8 @@ jobs:
           else
             echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
-      - uses: ncaq/nix-composite-action@1f61495635078811dbd842fc9d320c4d67380fcf # v2.0.0
+      - uses: ncaq/nix-composite-action@9b26867355388b589de67c08de87e8786e2e8094 # v3.0.0
         if: steps.check_tag.outputs.skip != 'true'
-        with:
-          cachix-auth-token: "${{ secrets.CACHIX_AUTH_TOKEN }}"
       - name: Build sdist
         if: steps.check_tag.outputs.skip != 'true'
         run: nix develop --command cabal sdist
