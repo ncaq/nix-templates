@@ -61,8 +61,12 @@ indent_size = unset
 indent_style = tab
 indent_size = unset
 
-# インデントが倍数になるとは限らない言語。
-[*.{chs,el,hs,hsc,hsig,lhs,lhsig}]
+# Haskellは文法の都合で3文字インデントが必要な場合があるので未設定。
+[*.{chs,hs,hsc,hsig,lhs,lhsig}]
+indent_size = unset
+
+# Emacs Lispは文法の都合で3文字インデントが必要な場合があるので未設定。
+[*.el]
 indent_size = unset
 
 [*.md]
