@@ -45,7 +45,7 @@ nix-fast-buildではなくnix flake checkを使ってください。
 
 # リポジトリ構成
 
-Codex向けの`AGENTS.md`と、
+様々なコーディングエージェント向けの`AGENTS.md`と、
 Claude Code向けの`CLAUDE.md`は、
 以下のように`.github/copilot-instructions.md`のシンボリックリンクになっています。
 
