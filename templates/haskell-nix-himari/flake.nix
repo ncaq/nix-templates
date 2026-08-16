@@ -118,6 +118,7 @@
                 editorconfig-checker
                 fourmolu
                 hlint
+                nixf-diagnose
                 nixfmt
                 prettier
                 shellcheck
@@ -170,6 +171,7 @@
             programs = {
               actionlint.enable = true;
               deadnix.enable = true;
+              nixf-diagnose.enable = true;
               nixfmt.enable = true;
               prettier.enable = true;
               shellcheck.enable = true;

@@ -79,6 +79,7 @@
               deadnix.enable = true;
               fourmolu.enable = true;
               hlint.enable = true;
+              nixf-diagnose.enable = true;
               nixfmt.enable = true;
               prettier.enable = true;
               shellcheck.enable = true;
@@ -151,6 +152,7 @@
               fourmolu
               haskellPackages.cabal-gild
               hlint
+              nixf-diagnose
               nixfmt
               prettier
               shellcheck
