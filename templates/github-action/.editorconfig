@@ -43,7 +43,7 @@ indent_style = space
 indent_size = 2
 
 # 標準インデントが4の言語。
-[*.{cs,csx,java,kt,kts,php,py,pyi,rs}]
+[*.{cs,csx,fs,fsi,fsscript,fsx,java,kt,kts,php,py,pyi,rs}]
 indent_size = 4
 
 # Goのエコシステムは標準インデントがタブ。
