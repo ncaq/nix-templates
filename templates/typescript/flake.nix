@@ -72,11 +72,18 @@
             name: script:
             pkgs.runCommand name
               {
-                nativeBuildInputs = [ nodejs ];
+                nativeBuildInputs = [
+                  nodejs
+                  pkgs.importNpmLock.hooks.linkNodeModulesHook
+                ];
+                npmDeps = nodeModules;
               }
               ''
                 cp -r ${tsRoot}/. .
-                ln -s ${nodeModules}/node_modules node_modules
+                # vitestはnode_modules/.vitest-cacheなどに書き込むため、
+                # node_modules自体をストアへのリンクにするのではなく、
+                # devShellと同じく書き込み可能なディレクトリを作って中身をリンクする。
+                linkNodeModulesHook
                 npm run ${script}
                 touch $out
               '';
