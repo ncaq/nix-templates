@@ -15,7 +15,7 @@ concurrency:
 jobs:
   nix-fast-build:
     name: nix-fast-build
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     permissions:
       contents: read # リポジトリコンテンツの読み取り
       id-token: write # niks3 OIDC認証
@@ -38,7 +38,7 @@ jobs:
           - haskell-himari
           - haskell-nix-himari
           - typescript
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     permissions:
       contents: read # リポジトリコンテンツの読み取り
       id-token: write # niks3 OIDC認証
@@ -64,7 +64,7 @@ jobs:
           - haskell-himari
           - haskell-nix-himari
           - typescript
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     permissions:
       contents: read # リポジトリコンテンツの読み取り
       id-token: write # niks3 OIDC認証
